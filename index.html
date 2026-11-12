@@ -69,6 +69,7 @@ button.card:hover{box-shadow:0 4px 10px rgba(196,46,104,.1),0 16px 36px rgba(196
 .btn:disabled{opacity:.5;cursor:default}
 .btn-wide{justify-content:space-between;min-height:60px;padding:0 20px}
 .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.grid2 .btn{white-space:nowrap;padding:0 12px;font-size:15px}
 .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .chips{display:flex;gap:8px;overflow-x:auto;margin:0 -20px;padding:2px 20px 6px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
@@ -76,6 +77,11 @@ button.card:hover{box-shadow:0 4px 10px rgba(196,46,104,.1),0 16px 36px rgba(196
 .fchip{flex-shrink:0;min-height:40px;padding:0 15px;border-radius:99px;border:1.5px solid var(--border);background:var(--surface);color:var(--ink);font-size:14px;font-weight:700;white-space:nowrap}
 .fchip.on{background:linear-gradient(135deg,var(--g1),var(--g2));border-color:transparent;color:var(--btn-ink)}
 .sec{font-size:13px;font-weight:800;color:var(--muted);margin-bottom:-6px;display:flex;align-items:center;justify-content:space-between}
+.install{display:flex;align-items:center;gap:12px;background:var(--surface);border:1.5px solid var(--border);border-radius:22px;padding:12px 14px;box-shadow:var(--shadow)}
+.install .ic{width:46px;height:46px;border-radius:14px;flex-shrink:0;box-shadow:0 4px 12px rgba(255,120,170,.3)}
+.install .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.install .tx b{font-family:Fredoka,sans-serif;font-weight:600;font-size:16px}
+.install .tx span{font-size:12.5px;color:var(--muted);font-weight:600}
 .notice{background:var(--soft);border:1.5px dashed var(--border);border-radius:16px;padding:10px 14px;font-size:13px;color:var(--muted);font-weight:600}
 /* tab bar */
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:0 12px calc(10px + env(safe-area-inset-bottom))}
@@ -502,6 +508,8 @@ function confetti(){
 function burst(el,emoji){try{var r=el.getBoundingClientRect();for(var i=0;i<6;i++){var s=document.createElement('span');s.className='burst';s.textContent=emoji;s.style.left=(r.left+r.width/2-13)+'px';s.style.top=(r.top-6)+'px';s.style.setProperty('--dx',((Math.random()-.5)*120)+'px');s.style.animationDelay=(i*40)+'ms';document.body.appendChild(s);setTimeout(function(n){return function(){n.remove();};}(s),1300);}}catch(e){}}
 
 /* ---------- ui helpers ---------- */
+function installed(){try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;}catch(e){return false;}}
+function installCard(){if(!LIVE||installed()||dev.hideInstall)return '';return '<div class="install"><img class="ic" src="icons/icon-192.png" alt=""><span class="tx"><b>Install the app</b><span>Open it from your home screen, even offline</span></span><button class="btn-sm primary" data-act="install">Install</button><button class="icon-btn" data-act="hideInstall" aria-label="Hide install tip">\u2715</button></div>';}
 var toastT;function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show');},2400);}
 function sheet(html){layer.innerHTML='<div class="backdrop" data-act="closeSheet" data-self="1"><div class="sheet" role="dialog" aria-modal="true"><div class="grab"></div>'+html+'</div></div>';var f=layer.querySelector('input:not([type=date]),textarea');if(f)setTimeout(function(){try{f.focus();}catch(e){}},90);}
 function closeSheet(){layer.innerHTML='';}
@@ -595,6 +603,7 @@ function vHome(){
      '<div style="position:relative;z-index:1;margin-top:16px;display:flex;align-items:end;gap:8px"><span class="big">'+n+'</span><span style="font-weight:800;padding-bottom:4px">of '+TOTAL+' pages written</span></div>'+
      '<div class="bar" style="position:relative;z-index:1;margin-top:10px;background:rgba(255,255,255,.45)"><span style="width:'+Math.max(n?1.5:0,n/TOTAL*100)+'%;background:#fff"></span></div>'+
      (st.cur>0?'<p class="sub">\u{1F525} '+st.cur+'-day streak, keep it going!</p>':'<p class="sub">Write one today and start a streak ✨</p>')+'</section>';
+  h+=installCard();
   if(next)h+='<button class="btn btn-primary btn-wide" data-act="open" data-n="'+next+'"><span>Continue writing</span><span class="display" style="font-size:18px">#'+next+' →</span></button>';
   h+='<button class="card dice-card" data-act="roll" id="dicecard"><span class="dice" id="dice">'+diceFace(5)+'</span><span style="display:flex;flex-direction:column;gap:2px"><span class="qline">Roll the dice</span><span class="muted small" style="font-weight:600">Let fate pick your next question \u{1F3B2}</span></span></button>';
   if(rx.length){h+='<button class="card" data-act="seeRx"><span class="card-title">\u{1F48C} '+rx.length+' new reaction'+(rx.length>1?'s':'')+'</span><span style="font-weight:700">'+rx.slice(0,3).map(function(r){return esc(whoName(r.who))+' '+r.e;}).join(' · ')+'</span></button>';}
@@ -674,7 +683,7 @@ function vFocus(){
 function vShelf(){
   var shelf=(db.shelves[me()]||[]).filter(function(nk){return shelfProfile(nk);});
   var h='<main class="screen"><div><h1 class="h1">Shelf</h1><p class="muted small" style="font-weight:700">Books you can read</p></div>'+
-  '<button class="btn btn-primary" data-act="go" data-to="open">'+I.plus+' Open a book</button>';
+  installCard()+'<button class="btn btn-primary" data-act="go" data-to="open">'+I.plus+' Open a book</button>';
   if(!shelf.length)h+='<div class="card" style="align-items:center;text-align:center"><span style="font-size:40px">\u{1F4DA}</span><p class="qline">Your shelf is empty</p><p class="muted small" style="font-weight:600">Open a friend’s book with their username and reader password, then save it here.</p></div>';
   else h+=shelf.map(function(nk){var pf=shelfProfile(nk);return '<button class="card" data-act="openNick" data-nick="'+esc(nk)+'" style="flex-direction:row;align-items:center;gap:14px">'+avatarHtml(pf,'lg')+'<span style="display:flex;flex-direction:column;gap:3px;min-width:0"><span class="qline">@'+esc(nk)+'</span><span class="muted small" style="font-weight:600">'+esc(pf.bio||'No bio yet')+'</span><span class="new">'+I.lock+' Needs password</span></span></button>';}).join('');
   if(!isAuthor())h+='<button class="card" data-act="go" data-to="setup"><span class="qline">✍️ Start my own book</span><span class="muted small" style="font-weight:600">Pick a username and answer 1000 questions about your life.</span></button>';
@@ -933,6 +942,7 @@ var ACT={
  showReader:function(){var el=document.getElementById('rpw');if(el)el.textContent=myBook().readerPlain||'(not set)';},
  chgOwner:function(){sheet('<h3>Change your password</h3><form data-form="chgOwner" style="display:flex;flex-direction:column;gap:12px" novalidate>'+pwField('c0','Current password')+pwField('c1','New password')+pwField('c2','Type it again')+'<p class="err" id="err"></p><button class="btn btn-primary" type="submit">Save password</button></form>');},
  chgReader:function(){sheet('<h3>Reader password</h3><p class="muted small" style="font-weight:600">Friends type this with your username. They can only read.</p><form data-form="chgReader" style="display:flex;flex-direction:column;gap:12px" novalidate>'+pwField('c1','New reader password')+pwField('c2','Type it again')+'<p class="err" id="err"></p><button class="btn btn-primary" type="submit">Save reader password</button></form>');},
+ hideInstall:function(){dev.hideInstall=true;saveDev();render();toast('You can still install from Settings');},
  install:function(){if(window.__bip){var bp=window.__bip;window.__bip=null;bp.prompt();return;}sheet('<h3>Install the app</h3><div class="card"><p class="card-title">Android (Chrome)</p><p style="font-weight:600">Tap the <b>⋮ menu</b>, then <b>Add to Home screen</b> or <b>Install app</b>.</p></div><div class="card"><p class="card-title">iPhone (Safari)</p><p style="font-weight:600">Tap <b>Share</b>, then <b>Add to Home Screen</b>.</p></div><button class="btn btn-primary" data-act="closeSheet">Got it</button>');},
  backup:function(){sheet('<h3>Backup</h3><p class="muted" style="font-weight:600">Every answer, its date, mood, and your free pages in one text file.</p><button class="btn btn-primary" data-act="dlBackup">'+I.download+' Download .txt</button><button class="btn btn-ghost" data-act="cpBackup">'+I.copy+' Copy everything</button>');},
  dlBackup:function(){var t=backupText();try{var bl=new Blob([t],{type:'text/plain'}),u=URL.createObjectURL(bl),a=document.createElement('a');a.href=u;a.download='about-me-backup.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u);},2000);}catch(e){}toast(LIVE?'Backup downloaded':'Download started (in this preview, use Copy if nothing happens)');},
