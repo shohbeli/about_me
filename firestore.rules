@@ -27,6 +27,11 @@ service cloud.firestore {
       allow write: if isOwner()
         && get(/databases/$(database)/documents/shared/$(shareId)).data.owner == request.auth.uid;
     }
+    match /shared/{shareId}/reactions/{readerId} {
+      allow read: if signedIn() && exists(/databases/$(database)/documents/shared/$(shareId));
+      allow write: if signedIn() && exists(/databases/$(database)/documents/shared/$(shareId))
+        && (request.auth.uid == readerId || isOwner());
+    }
 
     // ===== App 2: about_me (anyone can be an author) =====
     // Each author's private book.
