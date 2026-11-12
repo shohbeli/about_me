@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-size="m">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FFF6FA">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="About Me">
+<title>About Me · 1000 things to write about</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+:root{--bg:#FFF6FA;--blob1:#FFD3E4;--blob2:#FFE3D3;--blob3:#EADCFF;--surface:#FFFFFF;--ink:#43213A;--muted:#85566F;--accent:#C42E68;--chip:#FFE3EE;--chip-ink:#A3245A;--line:#F7D3E2;--border:#F6D5E3;--soft:#FFF0F6;--g1:#FF8CB8;--g2:#FFAE94;--btn-ink:#4A0E2B;--danger:#B42350;--shadow:0 2px 6px rgba(196,46,104,.06),0 12px 30px rgba(196,46,104,.09);--ans-size:19px;--ans-lh:36px;color-scheme:light}
+[data-theme=dark]{--bg:#1C1018;--blob1:#3A1830;--blob2:#3A2020;--blob3:#2A1F44;--surface:#28161F;--ink:#FFE6F1;--muted:#D9A9C3;--accent:#FF8DBB;--chip:#46203A;--chip-ink:#FFC7DE;--line:#4E2B3E;--border:#46283A;--soft:#2F1A26;--g1:#FF8DBB;--g2:#FFA894;--btn-ink:#3A0D25;--danger:#FF8FA8;--shadow:0 2px 6px rgba(0,0,0,.3),0 12px 30px rgba(0,0,0,.3);color-scheme:dark}
+[data-size=s]{--ans-size:17px;--ans-lh:32px}[data-size=l]{--ans-size:22px;--ans-lh:42px}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,-apple-system,sans-serif;-webkit-tap-highlight-color:transparent}
+body{min-height:100vh;overflow-x:hidden}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;transition:transform .15s cubic-bezier(.3,.7,.4,1.5),box-shadow .2s,background .2s}
+button:active:not(:disabled){transform:scale(.96)}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px;border-radius:10px}
+svg{flex-shrink:0}
+p{margin:0}h1,h2,h3{margin:0;font-weight:500}
+.display{font-family:Fredoka,Nunito,sans-serif}
+.muted{color:var(--muted)}.small{font-size:13px}
+.bgblobs{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.bgblobs i{position:absolute;border-radius:50%;filter:blur(40px);opacity:.7;animation:drift 18s ease-in-out infinite alternate}
+.bgblobs i:nth-child(1){width:320px;height:320px;background:var(--blob1);top:-80px;left:-90px}
+.bgblobs i:nth-child(2){width:260px;height:260px;background:var(--blob2);top:40%;right:-100px;animation-delay:-6s}
+.bgblobs i:nth-child(3){width:280px;height:280px;background:var(--blob3);bottom:-100px;left:10%;animation-delay:-12s}
+@keyframes drift{to{transform:translate(40px,30px) scale(1.12)}}
+#app{max-width:480px;margin:0 auto;min-height:100vh;position:relative}
+.has-tabs{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+.has-pager{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+.screen{padding:22px 20px 28px;display:flex;flex-direction:column;gap:16px}
+.screen>*{animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
+.screen>*:nth-child(2){animation-delay:.04s}.screen>*:nth-child(3){animation-delay:.08s}.screen>*:nth-child(4){animation-delay:.12s}.screen>*:nth-child(5){animation-delay:.16s}.screen>*:nth-child(6){animation-delay:.2s}.screen>*:nth-child(7){animation-delay:.24s}.screen>*:nth-child(n+8){animation-delay:.28s}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+.kicker{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.h1{font-family:Fredoka,sans-serif;font-size:30px;font-weight:600;line-height:1.1}
+.hero{border-radius:28px;padding:22px 20px;background:linear-gradient(135deg,var(--g1),var(--g2));color:var(--btn-ink);position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.hero::after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.25);right:-50px;top:-60px}
+.hero .hi{font-family:Fredoka,sans-serif;font-size:28px;font-weight:600;line-height:1.1;position:relative;z-index:1}
+.hero .sub{font-weight:700;opacity:.85;margin-top:4px;position:relative;z-index:1}
+.avatar{width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)}
+.avatar.lg{width:84px;height:84px;font-size:46px}
+.avatar.xl{width:104px;height:104px;font-size:58px}
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:22px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;text-align:left;box-shadow:var(--shadow)}
+button.card{width:100%;font:inherit}
+button.card:hover{box-shadow:0 4px 10px rgba(196,46,104,.1),0 16px 36px rgba(196,46,104,.12)}
+.card-title{font-size:13px;font-weight:800;color:var(--muted);display:flex;align-items:center;gap:6px}
+.qline{font-family:Fredoka,sans-serif;font-size:19px;font-weight:500;line-height:1.3}
+.snip{font-size:15px;line-height:1.45;color:var(--ink);opacity:.8;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.big{font-family:Fredoka,sans-serif;font-size:42px;font-weight:600;line-height:1}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.bar{height:10px;background:var(--chip);border-radius:99px;overflow:hidden}
+.bar>span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--g1),var(--g2));animation:grow 1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes grow{from{width:0!important}}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:99px;background:var(--chip);color:var(--chip-ink);font-size:12.5px;font-weight:800}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 18px;border-radius:18px;border:1.5px solid transparent;font-size:15.5px;font-weight:800;text-decoration:none}
+.btn-primary{background:linear-gradient(135deg,var(--g1),var(--g2));color:var(--btn-ink);box-shadow:0 6px 18px rgba(255,120,170,.35)}
+.btn-ghost{background:var(--surface);border-color:var(--border);color:var(--ink);font-weight:700}
+.btn-danger{background:var(--surface);border-color:var(--border);color:var(--danger)}
+.btn:disabled{opacity:.5;cursor:default}
+.btn-wide{justify-content:space-between;min-height:60px;padding:0 20px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.chips{display:flex;gap:8px;overflow-x:auto;margin:0 -20px;padding:2px 20px 6px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{display:inline-flex;align-items:center;flex-shrink:0;padding:4px 11px;border-radius:99px;background:var(--chip);color:var(--chip-ink);font-size:12px;font-weight:800;white-space:nowrap}
+.fchip{flex-shrink:0;min-height:40px;padding:0 15px;border-radius:99px;border:1.5px solid var(--border);background:var(--surface);color:var(--ink);font-size:14px;font-weight:700;white-space:nowrap}
+.fchip.on{background:linear-gradient(135deg,var(--g1),var(--g2));border-color:transparent;color:var(--btn-ink)}
+.sec{font-size:13px;font-weight:800;color:var(--muted);margin-bottom:-6px;display:flex;align-items:center;justify-content:space-between}
+.notice{background:var(--soft);border:1.5px dashed var(--border);border-radius:16px;padding:10px 14px;font-size:13px;color:var(--muted);font-weight:600}
+/* tab bar */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:0 12px calc(10px + env(safe-area-inset-bottom))}
+.tabbar .in{max-width:456px;margin:0 auto;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;background:var(--surface);border:1.5px solid var(--border);border-radius:24px;box-shadow:var(--shadow);padding:4px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px 7px;min-height:56px;background:none;border:0;border-radius:18px;color:var(--muted);font-size:11px;font-weight:700}
+.tab.on{color:var(--accent);background:var(--soft)}
+.tab.on svg{animation:hop .4s cubic-bezier(.3,.7,.4,1.6)}
+@keyframes hop{40%{transform:translateY(-4px) scale(1.12)}}
+.topbar{position:sticky;top:0;z-index:15;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;background:var(--bg)}
+.topbar .mid{font-size:13px;color:var(--muted);font-weight:700;text-align:center}
+.icon-btn{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border:0;background:transparent;border-radius:14px;color:var(--ink)}
+.icon-btn.soft{background:var(--surface);border:1.5px solid var(--border)}
+.back-btn{display:inline-flex;align-items:center;gap:4px;min-height:44px;padding:0 10px;border:0;background:none;font-size:15px;font-weight:700;color:var(--ink);border-radius:14px}
+/* page */
+.paper{margin:4px 14px 0;background:var(--surface);border-radius:26px;box-shadow:var(--shadow);border:1.5px solid var(--border);animation:rise .45s cubic-bezier(.2,.8,.2,1) both}
+.qhead{position:sticky;top:64px;z-index:5;background:var(--surface);border-radius:26px 26px 0 0;padding:20px 20px 10px;display:flex;flex-direction:column;gap:10px}
+.pnum{font-family:Fredoka,sans-serif;font-size:20px;font-weight:600;color:var(--accent)}
+.qtext{font-family:Fredoka,sans-serif;font-size:23px;font-weight:500;line-height:1.3}
+.tools{display:flex;gap:6px;overflow-x:auto;margin:0 -20px;padding:2px 20px 4px;scrollbar-width:none}
+.tools::-webkit-scrollbar{display:none}
+.tool{display:inline-flex;align-items:center;gap:5px;min-height:36px;padding:0 12px;border-radius:99px;border:1.5px solid var(--border);background:transparent;color:var(--muted);font-size:12.5px;font-weight:700;white-space:nowrap;flex-shrink:0}
+.tool.on{background:var(--chip);border-color:var(--chip);color:var(--chip-ink)}
+.tool:disabled{opacity:.45;cursor:default}
+.ans{padding:6px 20px 4px}
+.ruled{display:block;width:100%;margin:0;padding:0 2px;border:0;outline:none;resize:none;overflow:hidden;font-family:Nunito,sans-serif;font-weight:600;font-size:var(--ans-size);line-height:var(--ans-lh);color:var(--ink);background-color:transparent;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent calc(var(--ans-lh) - 2px),var(--line) calc(var(--ans-lh) - 2px),var(--line) calc(var(--ans-lh) - 1px),transparent calc(var(--ans-lh) - 1px),transparent var(--ans-lh));background-attachment:local;white-space:pre-wrap;overflow-wrap:anywhere;text-align:left}
+textarea.ruled{min-height:calc(var(--ans-lh) * 7)}
+textarea.ruled::placeholder{color:var(--muted);opacity:.55}
+.ans-view{cursor:text;min-height:calc(var(--ans-lh) * 2)}
+.hint{font-size:12px;color:var(--muted);margin-top:6px;font-weight:600}
+.foot{padding:6px 20px 18px;display:flex;flex-direction:column;gap:10px}
+.dates{font-size:12px;color:var(--muted);line-height:1.55;font-weight:600}
+.status{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);margin-right:auto;font-weight:700}
+.btn-sm{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border-radius:99px;border:1.5px solid var(--border);background:var(--surface);color:var(--ink);font-size:13px;font-weight:700}
+.btn-sm.primary{background:linear-gradient(135deg,var(--g1),var(--g2));border-color:transparent;color:var(--btn-ink);font-weight:800}
+.btn-sm.danger{color:var(--danger)}
+.song{display:flex;align-items:center;gap:10px;margin:0 20px 6px;padding:10px 12px;border-radius:16px;background:var(--soft);color:var(--ink);text-decoration:none;font-size:14px}
+.song b{font-weight:800;display:block}.song span{font-size:12px;color:var(--muted)}
+.reacts{display:flex;gap:6px;flex-wrap:wrap;padding:0 20px 6px}
+.rx{display:inline-flex;align-items:center;gap:4px;min-height:36px;padding:0 11px;border-radius:99px;border:1.5px solid var(--border);background:var(--surface);font-size:15px;font-weight:800;color:var(--ink)}
+.rx.on{background:var(--chip);border-color:var(--accent)}
+.rx.pop{animation:pop .45s cubic-bezier(.3,.7,.4,1.8)}
+@keyframes pop{40%{transform:scale(1.35)}}
+.burst{position:fixed;pointer-events:none;z-index:70;font-size:26px;animation:floatup 1s ease-out forwards}
+@keyframes floatup{to{transform:translate(var(--dx),-120px) scale(1.4);opacity:0}}
+.seg-tabs{display:inline-flex;gap:4px;padding:4px;background:var(--soft);border-radius:14px;margin:0 20px 8px}
+.seg-tabs button{min-height:34px;padding:0 12px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-size:13px;font-weight:700}
+.seg-tabs button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.sealed{margin:6px 20px 10px;padding:26px 18px;border-radius:22px;background:linear-gradient(135deg,var(--chip),var(--soft));display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.env{font-size:54px;animation:wiggle 2.4s ease-in-out infinite}
+@keyframes wiggle{0%,100%{transform:rotate(0)}10%{transform:rotate(-8deg)}20%{transform:rotate(8deg)}30%{transform:rotate(0)}}
+.pager{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px 14px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(to top,var(--bg) 70%,transparent)}
+.pager .in{max-width:480px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
+.pager .count{font-size:13px;color:var(--muted);text-align:center;min-width:56px;font-weight:700}
+/* lists */
+.search{display:flex;align-items:center;gap:8px;min-height:50px;padding:0 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:18px}
+.search input{flex:1;min-width:0;border:0;outline:none;background:transparent;font-size:15px;min-height:44px}
+.rows{display:flex;flex-direction:column;gap:8px}
+.lrow{display:flex;align-items:flex-start;gap:12px;width:100%;padding:13px 14px;border:1.5px solid var(--border);border-radius:18px;background:var(--surface);text-align:left}
+.lrow .n{width:42px;flex-shrink:0;font-family:Fredoka,sans-serif;font-weight:600;font-size:15px;color:var(--accent);padding-top:1px}
+.lrow .m{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.lrow .q{font-family:Fredoka,sans-serif;font-size:16px;font-weight:500;line-height:1.3}
+.meta{display:flex;align-items:center;gap:6px;color:var(--accent);flex-wrap:wrap}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--g1);display:inline-block;flex-shrink:0}
+.new{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:800;color:var(--accent)}
+.empty{padding:40px 10px;text-align:center;color:var(--muted);font-weight:600}
+/* settings */
+.group{background:var(--surface);border:1.5px solid var(--border);border-radius:22px;overflow:hidden;box-shadow:var(--shadow)}
+.item{display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:12px 16px;border:0;border-bottom:1.5px solid var(--soft);background:transparent;text-align:left;font-size:15px;font-weight:700}
+.group>.item:last-child{border-bottom:0}
+.item .grow{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.item .sub{font-size:12.5px;color:var(--muted);font-weight:600}
+.item .ic{width:34px;height:34px;border-radius:12px;background:var(--soft);color:var(--accent);display:inline-flex;align-items:center;justify-content:center}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;padding:4px;background:var(--soft);border-radius:14px}
+.seg button{min-height:38px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-size:13.5px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:5px}
+.seg button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.seg-wrap{padding:12px 16px;border-bottom:1.5px solid var(--soft);display:flex;flex-direction:column;gap:8px}
+.switch{position:relative;width:50px;height:30px;flex-shrink:0;border-radius:99px;border:0;background:var(--chip);padding:0}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .25s cubic-bezier(.3,.7,.4,1.4)}
+.switch[aria-checked=true]{background:linear-gradient(135deg,var(--g1),var(--g2))}
+.switch[aria-checked=true]::after{left:23px}
+/* forms */
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;font-weight:800;color:var(--muted)}
+.inp{display:flex;align-items:center;min-height:52px;border:1.5px solid var(--border);border-radius:16px;background:var(--surface);padding:0 6px 0 14px}
+.inp input,.inp textarea{flex:1;min-width:0;border:0;outline:none;background:transparent;font-size:16px;min-height:48px;font-weight:600}
+.inp textarea{padding:12px 0;resize:none;min-height:80px}
+.inp:focus-within{border-color:var(--accent);box-shadow:0 0 0 4px var(--soft)}
+.inp .pre{color:var(--muted);font-weight:800;margin-right:2px}
+.err{color:var(--danger);font-size:13px;min-height:18px;font-weight:700}
+.shake{animation:shake .35s}
+@keyframes shake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+/* sheet */
+#layer:empty{display:none}
+.backdrop{position:fixed;inset:0;z-index:50;background:rgba(60,15,40,.4);display:flex;align-items:flex-end;justify-content:center;animation:fade .2s}
+.sheet{width:100%;max-width:480px;max-height:90vh;overflow:auto;background:var(--bg);border-radius:28px 28px 0 0;padding:10px 20px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:14px;animation:up .35s cubic-bezier(.2,.9,.3,1.1)}
+.grab{width:42px;height:5px;border-radius:9px;background:var(--border);margin:0 auto 4px}
+.sheet h3{font-family:Fredoka,sans-serif;font-size:23px;font-weight:600}
+@keyframes up{from{transform:translateY(60px);opacity:.4}}
+@keyframes fade{from{opacity:0}}
+#toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top));transform:translateX(-50%) translateY(-20px);z-index:80;background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:99px;font-size:14px;font-weight:700;opacity:0;pointer-events:none;transition:all .3s cubic-bezier(.3,.7,.4,1.4);max-width:90vw;text-align:center}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:90}
+/* welcome */
+.center{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:32px 24px;gap:20px}
+.logo{font-size:64px;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px) rotate(-4deg)}}
+.gbtn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;border-radius:18px;border:1.5px solid var(--border);background:var(--surface);color:var(--ink);font-size:16px;font-weight:800;box-shadow:var(--shadow)}
+.acct{display:flex;align-items:center;gap:12px;width:100%;padding:14px;border-radius:18px;border:1.5px solid var(--border);background:var(--surface);text-align:left}
+/* dice */
+.card.dice-card{flex-direction:row;align-items:center;gap:14px}
+.dice{width:58px;height:58px;border-radius:16px;background:var(--surface);border:2px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:9px;gap:2px;box-shadow:0 4px 0 var(--border);flex-shrink:0}
+.dice i{width:8px;height:8px;border-radius:50%;background:var(--accent);place-self:center;opacity:0}
+.dice i.on{opacity:1}
+.rolling .dice{animation:roll .9s cubic-bezier(.3,.7,.4,1.2)}
+@keyframes roll{0%{transform:rotate(0)}30%{transform:translateY(-26px) rotate(200deg)}60%{transform:translateY(0) rotate(360deg)}75%{transform:translateY(-8px) rotate(380deg)}100%{transform:rotate(360deg)}}
+/* focus */
+.focus{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;background:var(--bg);animation:fade .4s}
+.focus .fx-bg{position:absolute;inset:0;overflow:hidden;z-index:0}
+.focus .fx-bg i{position:absolute;border-radius:50%;filter:blur(50px);opacity:.55;animation:drift 12s ease-in-out infinite alternate}
+.focus .fx-bg i:nth-child(1){width:300px;height:300px;background:var(--blob1);top:-60px;right:-60px}
+.focus .fx-bg i:nth-child(2){width:260px;height:260px;background:var(--blob3);bottom:-40px;left:-60px;animation-delay:-5s}
+.focus .inner{position:relative;z-index:1;max-width:520px;width:100%;margin:0 auto;flex:1;display:flex;flex-direction:column;padding:18px 22px calc(18px + env(safe-area-inset-bottom));gap:14px;overflow:auto}
+.focus .q{font-family:Fredoka,sans-serif;font-size:26px;font-weight:500;line-height:1.3;animation:rise .6s .1s both}
+.breath{width:10px;height:10px;border-radius:50%;background:var(--g1);animation:breathe 4s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(2.2);opacity:.4}}
+/* moods & calendar */
+.moods{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.mood{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 4px;border-radius:18px;border:1.5px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;color:var(--muted)}
+.mood span{font-size:30px;transition:transform .2s}
+.mood:hover span{transform:scale(1.15) rotate(-6deg)}
+.mood.on{border-color:var(--accent);background:var(--chip);color:var(--chip-ink)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.cal .dh{font-size:11px;font-weight:800;color:var(--muted);text-align:center}
+.cal .d{aspect-ratio:1;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted);background:var(--soft);position:relative}
+.cal .d.has{color:var(--ink)}
+.cal .d em{font-style:normal;font-size:18px;line-height:1}
+.cal .d.today{box-shadow:inset 0 0 0 2px var(--accent)}
+/* stickers */
+.stk{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 6px;border-radius:20px;background:var(--surface);border:1.5px solid var(--border);text-align:center}
+.stk .e{font-size:36px;filter:drop-shadow(0 3px 0 rgba(0,0,0,.08))}
+.stk .t{font-size:12px;font-weight:800;line-height:1.2}
+.stk .s{font-size:11px;color:var(--muted);font-weight:600;line-height:1.25}
+.stk.lock .e{filter:grayscale(1);opacity:.3}
+.stk.lock .t{color:var(--muted)}
+.unlock .e{font-size:84px;animation:stamp .7s cubic-bezier(.3,.7,.4,1.6) both}
+@keyframes stamp{0%{transform:scale(0) rotate(-30deg)}100%{transform:scale(1) rotate(0)}}
+/* wrapped */
+.wrap{position:fixed;inset:0;z-index:45;color:#fff;display:flex;flex-direction:column;overflow:hidden}
+.wrap .wbg{position:absolute;inset:-20%;background:conic-gradient(from 0deg,#FF7EB0,#FFAE94,#C9A7FF,#FF7EB0);animation:spin 14s linear infinite;filter:blur(30px)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.wrap .wshade{position:absolute;inset:0;background:rgba(70,20,50,.25)}
+.wrap .bars{position:relative;z-index:2;display:flex;gap:4px;padding:14px 14px 0}
+.wrap .bars i{flex:1;height:4px;border-radius:9px;background:rgba(255,255,255,.35);overflow:hidden}
+.wrap .bars i.done{background:#fff}
+.wrap .bars i.cur::after{content:"";display:block;height:100%;background:#fff;animation:fill 5s linear forwards}
+@keyframes fill{from{width:0}to{width:100%}}
+.wrap .slide{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;justify-content:center;padding:24px 28px;gap:14px;text-align:center;animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+.wrap .wk{font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:13px;opacity:.9}
+.wrap .wbig{font-family:Fredoka,sans-serif;font-size:76px;font-weight:600;line-height:1;text-shadow:0 4px 20px rgba(120,20,70,.3)}
+.wrap .wmid{font-family:Fredoka,sans-serif;font-size:32px;font-weight:600;line-height:1.15}
+.wrap .wq{font-size:17px;font-weight:700;line-height:1.5;background:rgba(255,255,255,.18);border-radius:20px;padding:16px;text-align:left}
+.wrap .tap{position:absolute;top:0;bottom:0;width:35%;z-index:3;background:none;border:0}
+.wrap .close{position:absolute;top:22px;right:12px;z-index:4;color:#fff}
+/* share card */
+.cardimg{width:100%;border-radius:20px;box-shadow:var(--shadow);display:block}
+/* profile */
+.prof{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:10px 0 4px}
+.prof .nick{font-family:Fredoka,sans-serif;font-size:26px;font-weight:600}
+.prof .bio{color:var(--muted);font-weight:600;max-width:320px}
+.picks{display:flex;gap:8px;flex-wrap:wrap}
+.pick{width:46px;height:46px;border-radius:14px;border:2px solid var(--border);background:var(--surface);font-size:24px;display:flex;align-items:center;justify-content:center}
+.pick.on{border-color:var(--accent);transform:scale(1.08)}
+.swatch{width:40px;height:40px;border-radius:50%;border:3px solid var(--surface);box-shadow:0 0 0 2px var(--border)}
+.swatch.on{box-shadow:0 0 0 3px var(--accent)}
+.stat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.stat{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:4px;box-shadow:var(--shadow)}
+.stat .v{font-family:Fredoka,sans-serif;font-size:30px;font-weight:600;line-height:1.1}
+.stat .l{font-size:12.5px;color:var(--muted);font-weight:700}
+.fbar{display:grid;grid-template-columns:104px 1fr 44px;gap:10px;align-items:center;font-size:13px;font-weight:700}
+.fbar .t{height:9px;background:var(--chip);border-radius:99px;overflow:hidden}
+.fbar .t span{display:block;height:100%;background:linear-gradient(90deg,var(--g1),var(--g2));animation:grow 1s both}
+.pp{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:22px 20px;display:flex;flex-direction:column;gap:8px}
+.print-only{display:none}
+@media print{
+ @page{margin:18mm}
+ #app,#layer,#toast,#fx,.bgblobs{display:none!important}
+ .print-only{display:block!important}
+ body{background:#fff;color:#2a1520;font-family:Nunito,sans-serif}
+ .pb-cover{height:240mm;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;page-break-after:always}
+ .pb-cover h1{font-family:Fredoka,sans-serif;font-size:54pt;margin:6mm 0}
+ .pb-item{page-break-inside:avoid;padding:6mm 0;border-bottom:.3mm solid #f6d5e3}
+ .pb-q{font-family:Fredoka,sans-serif;font-size:14pt;margin:0 0 3mm}
+ .pb-n{color:#c42e68;font-size:9.5pt;letter-spacing:.1em;text-transform:uppercase;font-weight:800}
+ .pb-a{font-size:12pt;line-height:1.55;white-space:pre-wrap}
+ .pb-d{font-size:8.5pt;color:#85566f;margin-top:2mm}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="bgblobs" aria-hidden="true"><i></i><i></i><i></i></div>
+<div id="app"></div>
+<div id="layer"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div id="printRoot" class="print-only"></div>
+<script>
+(function(){
+'use strict';
+var DATA = {"feelings":["Deep thoughts","Who I am","Childhood","Family","Friends","Love","Heartbreak","Hard times","Fears","Proud moments","Growth","School & work","Dreams","Faith & meaning","What if","Funny","Gratitude","Secrets","Little things","Future self"],"questions":[["What's one thing people always get wrong about you?",1],["If no one would ever judge you, how would you live differently?",0],["What's a lesson you learned the hard way?",10],["What does love feel like to you?",5],["What's a smell that takes you back to being a kid?",2],["What's something your parents taught you without saying it?",3],["What do you pretend not to care about?",0],["What do you want to tell yourself 5 years from now?",19],["What if you had said yes to that one thing?",14],["Where do you see yourself in 10 years?",12],["What's your favorite time of night, and why?",18],["When did you surprise yourself?",9],["What job did you dream of as a kid?",11],["Who are you thankful for but never told?",16],["Who was your first best friend?",4],["What's your most embarrassing moment?",15],["What's the hardest season you've survived?",7],["What gives your life meaning on ordinary days?",13],["What have you never said out loud?",17],["What did your heart learn that your mind still argues with?",6],["What scares you that you've never told anyone?",8],["Which version of yourself do you miss?",0],["What do you hope future you forgives you for?",19],["What are you still waiting for permission to do?",0],["What dream did you quietly give up on?",12],["What would you do if you knew you couldn't fail?",0],["What did you have to unlearn?",10],["What part of your parents do you see in yourself?",3],["What did you believe as a kid that you wish were still true?",2],["How would your best friend describe you in three words?",1],["What does being loved well look like to you?",5],["What's your favorite smell in the world?",18],["Who knows the real you best, and why them?",4],["What small thing made you happy this week?",16],["What if you had chosen a different course or path?",14],["What belief did you hold for years that you've let go of?",0],["What do you believe in, even when it's hard to?",13],["What would you do for work if money didn't matter?",11],["What's a story you can't tell without laughing?",15],["What's something you did that you thought you couldn't?",9],["What got you through your darkest days?",7],["What's a secret you've kept for years?",17],["What's the hardest goodbye you've ever said?",6],["What are you afraid people will find out about you?",8],["Finish this thought, then keep going: \"I miss the part of me that...\"",0],["How do you show love?",5],["How are you different from who you were a year ago?",10],["What dream are you still holding on to?",12],["What did you want to be when you grew up, and why?",2],["What do you hope future you still believes in?",19],["How would you describe yourself in three words?",1],["What's a family tradition you love?",3],["When do you feel most like yourself?",0],["What makes someone a true friend to you?",4],["What's a sound that instantly relaxes you?",18],["Finish this thought, then keep going: \"Something I've never admitted is...\"",0],["What's something you have now that you once prayed for?",16],["What if you could relive one day of your life?",14],["What helped you heal from your first heartbreak?",6],["Who showed up for you when things were hard?",7],["What's something you've never told your parents?",17],["Who was the teacher who changed you?",11],["What's your biggest fear about the future?",8],["What's a moment that felt like a sign?",13],["What's the funniest thing that happened to you in public?",15],["What's an achievement nobody celebrated but you're proud of?",9],["What's a truth you're avoiding right now?",0],["What's on your bucket list?",12],["What habit do you want future you to have?",19],["What's a family tradition you'd change?",3],["Who was your favorite person when you were little?",2],["How do you like to receive love?",5],["What's a quality you have that you don't give yourself credit for?",1],["What does success mean to you now, compared to when you were younger?",0],["What's a mistake you're glad you made?",10],["What if you could talk to your future self for five minutes?",14],["What's a simple pleasure you never get tired of?",16],["What's your favorite kind of weather?",18],["What does \"home\" mean to you, if it isn't a place?",0],["What's the best thing a friend has ever done for you?",4],["Is it easier for you to plan ahead or go with the flow? Why do you think that is?",0],["How has your faith changed over the years?",13],["What's a crush you never confessed?",17],["What's something you went through that people don't know about?",7],["What's a song you couldn't listen to after a breakup?",6],["What's the hardest thing you've ever worked for?",9],["What fear has held you back the most?",8],["What subject did you love, and which one did you hate?",11],["What's the weirdest dream you've ever had?",15],["What advice would you give your younger self?",10],["Where in the world do you want to go most?",12],["If your life were a book, what would this chapter be called?",0],["What do you hope future you has let go of?",19],["What was your favorite toy, and where is it now?",2],["Who in your family understands you the most?",3],["When did you first fall in love?",5],["What makes you different from everyone in your family?",1],["What are you carrying that isn't yours to carry?",0],["What's a lesson you're grateful you learned early?",16],["What's a friendship you outgrew?",4],["What's the best thing you ate this week?",18],["What if you could erase one memory? Would you?",14],["Finish this thought, then keep going: \"I'm ready to...\"",0],["What's your earliest memory?",2],["What would you forgive yourself for today?",0],["What's something you wish you could tell your mom?",3],["What does your dream home look like?",12],["What are you like when you're truly comfortable?",1],["What do you hope future you is proud of?",19],["What do you pray or wish for the most?",13],["What did your first love teach you?",5],["What did your hardest year teach you?",7],["What's a belief you changed your mind about?",10],["What's something you pretend to like?",17],["What did heartbreak teach you about yourself?",6],["What were you afraid of as a kid that you're not afraid of now?",8],["What's the dumbest way you've gotten hurt?",15],["What's your proudest school moment?",11],["What's a moment you stood up for yourself?",9],["What does family mean to you now, compared to when you were younger?",0],["What's a friendship you wish you could repair?",4],["Who's a stranger whose kindness you still remember?",16],["What do you want people to feel after spending time with you?",0],["What's a small luxury you love?",18],["What if you woke up tomorrow with no fear at all?",14],["Someday, I want to adopt a pet. Write about why.",12],["What does love look like through food?",5],["What has life taught you about hard work?",10],["Are you more sentimental or practical? Write about what that says about you.",1],["Dear future me, about your happiness...",19],["What do you remember about the ice cream man when you were a kid?",2],["Finish this thought, then keep going: \"I feel most alive when...\"",0],["Write about your lola. What do they mean to you?",3],["What's something you know now that you wish you could unknow?",0],["What are you afraid of losing?",8],["What's a moment you stood up for someone else?",9],["Where do you feel closest to something bigger than you?",13],["What's something you said that you wish you could take back?",6],["What's a word you always mispronounce?",15],["When did you feel the most alone?",7],["What's something you secretly love but rarely admit?",17],["What's your most embarrassing school moment?",11],["Finish this thought, then keep going: \"I am more than...\"",0],["Write about a friend who you can be silent with.",4],["What if you became famous? How would your life be different?",14],["What's your favorite fruit, and why?",18],["Write a thank-you note to a stranger who helped you.",16],["What do you remember about your first day of school when you were a kid?",2],["What does love look like when you're both tired?",5],["Dear future me, about your peace...",19],["What's your dream for your 40s?",12],["What part of your life are you living on autopilot?",0],["Write about your family's pets. What do they mean to you?",3],["Are you more emotional or logical? Write about what that says about you.",1],["What has life taught you about luck?",10],["What would you stop doing if you weren't afraid of disappointing anyone?",0],["Write the message you never sent to an ex-friend.",17],["How did you get through a time you had to let go of a dream?",7],["Write about the song that helped you heal.",6],["What do you remember most about the day you chose your course?",11],["Be honest: are you afraid of losing the people you love? Where do you think that comes from?",8],["Where do you find meaning in your memories?",13],["If you were a font, what would you be and why?",15],["Finish this thought, then keep going: \"The world would be better if...\"",0],["Write about a time you were proud of yourself for keeping a promise.",9],["Write a thank-you note to a song.",16],["What if you were braver last year? How would your life be different?",14],["What's your favorite snack, and why?",18],["Write about a friend who taught you something important.",4],["What's a habit that changed your life?",10],["Where do you hope future you lives?",19],["What's something you wish you could tell your dad?",3],["What's your love language, and how did you find out?",1],["What would you do with a million pesos?",12],["What game did you play over and over as a kid?",2],["What do you need more of, and what do you need less of?",0],["What's your idea of a perfect date?",5],["What does friendship mean to you now, compared to when you were younger?",0],["What part of your body are you thankful for today?",16],["What does a meaningful life look like to you, honestly?",0],["Write about a time you were proud of yourself for saying no.",9],["Write the message you never sent to someone who hurt you.",17],["What do you remember most about your first work friend?",11],["Where do you find meaning in your body?",13],["What if you moved to a city where no one knew you?",14],["Be honest: are you afraid of staying the same forever? Where do you think that comes from?",8],["Write about the version of you after.",6],["If you were a color, what would you be and why?",15],["How did you get through a time your family was struggling?",7],["What's your favorite word?",18],["What kind of friend are you?",4],["Someday, I want to go back to school. Write about why.",12],["What does love look like when you're proud of someone?",5],["Is it easier for you to say yes or say no? Why do you think that is?",0],["What has life taught you about loneliness?",10],["What do you remember about your favorite song when you were a kid?",2],["Dear future me, about the people you found...",19],["Write about the way your family celebrates. What do they mean to you?",3],["Are you more spontaneous or a planner? Write about what that says about you.",1],["Who would you be without your phone for a month?",0],["Someday, I want to make a short film. Write about why.",12],["What do you keep promising yourself but never do?",0],["What's something you're still learning?",10],["Who do you hope is still in future you's life?",19],["Finish this thought, then keep going: \"I don't say it often, but...\"",0],["What's a love song that feels like your story?",5],["What do you do when no one's around?",1],["What does your family argue about the most?",3],["What were you afraid of as a child?",2],["What's your favorite song this month, and why?",18],["What if you had studied something else? How would your life be different?",14],["What's a lie you told that you still think about?",17],["What do you do when you feel like giving up?",7],["What did school teach you that wasn't in the books?",11],["Write about a friend who is the opposite of you.",4],["Write a thank-you note to your mom.",16],["What's a skill you taught yourself?",9],["What do you think happens after we die?",13],["Are you more afraid of failing or of never trying?",8],["What's something you wish you had said before it ended?",6],["What's the funniest thing a kid has said to you?",15],["What are you holding on to that's already gone?",0],["What do you remember about your lola or lolo when you were a kid?",2],["Finish this thought, then keep going: \"I want to become someone who...\"",0],["Write about your siblings. What do they mean to you?",3],["What does love look like when you're apart for the holidays?",5],["What has life taught you about friendship?",10],["What do you think you deserve, and do you believe it?",0],["Dear future me, about your money...",19],["Are you more organized or messy? Write about what that says about you.",1],["What's a dream you've never told anyone?",12],["Write a thank-you note to someone who believed in you.",16],["Write about a friend who helped you through heartbreak.",4],["What if you could pause time? How would your life be different?",14],["What's your favorite place in your city, and why?",18],["What do you remember most about your dream workplace?",11],["Write the message you never sent to yourself, today.",17],["Where do you find meaning in the people you've lost?",13],["Is it easier for you to forgive others or forgive yourself? Why do you think that is?",0],["If you were a kind of bread, what would you be and why?",15],["Write about a time you were proud of yourself for trying something new.",9],["Write about learning to trust again.",6],["How did you get through losing someone you loved?",7],["Be honest: are you afraid of being vulnerable? Where do you think that comes from?",8],["When was the last time you changed your mind about something important?",0],["What's a book, show, or song that changed how you think?",10],["Is it easier for you to ask for help or offer it? Why do you think that is?",0],["What do you hope future you finally tried?",19],["What's a small thing that instantly ruins your mood?",1],["Someday, I want to teach someone what I know. Write about why.",12],["What's something you need in a relationship that you rarely say?",5],["What's your favorite family meal?",3],["What's a childhood rule you hated but understand now?",2],["What's your favorite memory with your friends?",4],["What's your comfort movie or show?",18],["What's a hard experience you're now grateful for?",16],["What if you could know the answer to any one question?",14],["What question are you most afraid to ask yourself?",0],["What's a question about life you're still trying to answer?",13],["What's a moment you almost quit but didn't?",7],["What's a habit you finally broke?",9],["What's a fear you've faced head-on?",8],["What's the hardest part about adulting so far?",11],["What would you tell the world if everyone listened for one minute?",0],["What's your most-used meme or sticker?",15],["How long did it take you to feel okay again?",6],["What's a feeling you hide from everyone?",17],["What does love look like on your worst day?",5],["Someday, I want to help my community. Write about why.",12],["Write about a family member you lost. What do they mean to you?",3],["What do you remember about Christmas when you were a kid?",2],["Are you more patient or impatient? Write about what that says about you.",1],["What has life taught you about regret?",10],["Finish this thought, then keep going: \"I started believing that...\"",0],["Dear future me, about your mistakes...",19],["What is something you're slowly becoming?",0],["What's your favorite kind of hug, and why?",18],["What if you had a twin? How would your life be different?",14],["Write a thank-you note to your bed after a long day.",16],["Write about a friend who you've known the longest.",4],["Finish this thought, then keep going: \"My heart is quietly asking for...\"",0],["Be honest: are you afraid of your own potential? Where do you think that comes from?",8],["If you were a game, what would you be and why?",15],["Write the message you never sent to your younger self.",17],["Where do you find meaning in your dreams?",13],["Write about the first time you laughed again.",6],["What do you remember most about your school canteen?",11],["How did you get through a time you felt invisible?",7],["Write about a time you were proud of yourself for helping a stranger.",9],["What's a family story everyone always retells?",3],["What would your perfect life look like on an ordinary day?",12],["Who has taught you the most about life?",10],["Where did you go when you wanted to be alone as a kid?",2],["What's a deal-breaker for you, and why?",5],["What are you proud of that no one knows about?",0],["What's a small thing that instantly fixes your mood?",1],["What do you think future you will laugh at about today?",19],["What's something about where you live that you love?",16],["What does growing up mean to you now, compared to when you were younger?",0],["What if you had never met your best friend?",14],["Which friend would you call at 3 AM?",4],["What's the last thing that made you smile?",18],["What does your silence usually mean?",0],["What does love look like between friends?",5],["Dear future me, about your habits...",19],["What has life taught you about rest?",10],["Write about your family's recipes. What do they mean to you?",3],["What does being enough mean to you now, compared to when you were younger?",0],["What do you remember about brownouts when you were a kid?",2],["Someday, I want to run a marathon. Write about why.",12],["Are you more introverted or extroverted? Write about what that says about you.",1],["What helped you sleep on the nights you couldn't?",7],["What's a fear you finally faced?",9],["What's a silly fear you still have?",8],["Is there someone you still think about? Why?",6],["What's a song you sing badly but proudly?",15],["What does a good day at work or school look like for you?",11],["What's something you wish you could tell your best friend?",17],["What's a moment you felt truly at peace?",13],["What would you do with your life if you had one more year to live?",0],["What if you could live anywhere? How would your life be different?",14],["What's your favorite flower, and why?",18],["Write a thank-you note to your future self.",16],["What would you do with your life if you had a hundred more years?",0],["Write about a friend who pushed you to be better.",4],["Write about your family's quirks. What do they mean to you?",3],["Are you more of a dreamer or a doer? Write about what that says about you.",1],["What has life taught you about trust?",10],["Someday, I want to write a book. Write about why.",12],["What does love look like when it's old?",5],["What do you remember about rainy days when you were a kid?",2],["Dear future me, about your faith...",19],["What does kindness mean to you now, compared to when you were younger?",0],["Write the message you never sent to the stranger who changed your day.",17],["What do you remember most about your commute to school or work?",11],["What kind of person do you become when you're tired?",0],["Where do you find meaning in your family?",13],["If you were a dessert, what would you be and why?",15],["How did you get through a time you were far from home?",7],["Be honest: are you afraid of missing out? Where do you think that comes from?",8],["Write about the part of it you're grateful for.",6],["Write about a time you were proud of yourself for forgiving someone.",9],["Write about a friend who you'd want at your wedding.",4],["Is it easier for you to start something or finish it? Why do you think that is?",0],["What's your favorite drink, and why?",18],["Write a thank-you note to a hard time that shaped you.",16],["What if you had confessed your feelings? How would your life be different?",14],["What's something you want to create in your lifetime?",12],["Are you more of a morning person or a night person? Why?",1],["What do you wish people asked you about?",0],["Do you believe in soulmates? Why or why not?",5],["What's a lesson you keep having to relearn?",10],["What cartoon or show did you never miss?",2],["How did your family show love when you were growing up?",3],["What advice do you think future you would give you right now?",19],["What does loyalty mean to you now, compared to when you were younger?",0],["Write about a time you were proud of yourself for finishing something hard.",9],["What do you do when you're scared?",8],["What do you remember most about college?",11],["Write about the hope you held on to.",6],["Write the message you never sent to the person you used to be.",17],["If you were a piece of furniture, what would you be and why?",15],["Where do you find meaning in nature?",13],["How did you get through a time you had to be strong for others?",7],["What is the most honest thing you could say about yourself right now?",0],["What's your favorite thing to do on a rainy day?",18],["What's a meal you're grateful for?",16],["What do your friends tease you about?",4],["What if you could switch lives with someone for a day?",14],["What does love look like when you have to say goodbye?",5],["Dear future me, about your dreams...",19],["Write about your family's home. What do they mean to you?",3],["What do you remember about your dad's stories when you were a kid?",2],["What makes you feel small, and what makes you feel big?",0],["Are you more of a leader or a follower? Write about what that says about you.",1],["What has life taught you about patience?",10],["Someday, I want to travel alone. Write about why.",12],["What does freedom mean to you now, compared to when you were younger?",0],["What drains you the most at work or school?",11],["Where in your life are you settling?",0],["What's your weirdest food combination?",15],["Be honest: are you afraid of not being enough? Where do you think that comes from?",8],["What did you lose of yourself in a relationship?",6],["What do you hold sacred?",13],["What's a thought you have that you'd never post online?",17],["What's something you lost that you still grieve?",7],["What's a compliment you received that you'll never forget?",9],["What do you want to do for your parents someday?",3],["Write about a friend who is basically family.",4],["Write a thank-you note to the people who stayed.",16],["Is it easier for you to apologize or accept an apology? Why do you think that is?",0],["What if you had a different name? How would your life be different?",14],["What do you want future you to remember about this year?",19],["What do you understand now that you didn't understand before?",10],["What's your dream for your friendships?",12],["What's the best birthday you had as a kid?",2],["What's your favorite dessert, and why?",18],["What's the most romantic thing someone has done for you?",5],["What do you think is your best trait?",1],["What are you most curious about these days?",0],["Dear future me, about your friends...",19],["What does rest mean to you now, compared to when you were younger?",0],["What has life taught you about family?",10],["Are you more of a giver or a receiver? Write about what that says about you.",1],["Write about your dad. What do they mean to you?",3],["What does peace sound like to you?",0],["What's a dream that scares you a little?",12],["What does love look like toward yourself?",5],["What if you had never moved? How would your life be different?",14],["Write about a friend who stayed when others left.",4],["What do you remember about New Year's Eve when you were a kid?",2],["Write a thank-you note to your pet.",16],["What's your favorite street food, and why?",18],["What would you do if fear weren't a factor?",8],["Write about a message you deleted without sending.",6],["Write about a time you were proud of yourself for saving money.",9],["If you were a fruit, what would you be and why?",15],["How did you get through a time nobody understood you?",7],["Where do you find meaning in your friendships?",13],["What do you remember most about your toughest exam?",11],["Write the message you never sent to someone you hurt.",17],["Is it easier for you to talk or listen? Why do you think that is?",0],["What trait of yours are you still learning to accept?",1],["What story do you keep telling yourself that might not be true?",0],["What's your dream for your love life?",12],["What's the most romantic thing you've done for someone?",5],["What worry do you hope future you no longer has?",19],["What did your childhood home look like?",2],["What do you think your purpose is, even if you're not sure?",0],["How do you handle criticism now compared to before?",10],["What did your family sacrifice for you?",3],["What if you had grown up somewhere else?",14],["What's the funniest thing that happened with your barkada?",4],["What's your favorite place to sit and think?",18],["What's a song you're grateful exists?",16],["What's the most awkward thing you've said to a crush?",15],["Be honest: are you afraid of making the wrong choice? Where do you think that comes from?",8],["What does loneliness mean to you now, compared to when you were younger?",0],["What's a moment your family was proud of you?",9],["What gives you hope when things look bad?",13],["What did you find in yourself after it ended?",6],["What's something you're secretly proud of?",17],["What energizes you the most?",11],["What's a struggle that made you stronger?",7],["What are you running from?",0],["What has life taught you about gratitude?",10],["Someday, I want to be financially free. Write about why.",12],["Are you more of a coffee person or a tea person? Write about what that says about you.",1],["Is it easier for you to make decisions with your head or your heart? Why do you think that is?",0],["Write about the family member who makes you laugh the most. What do they mean to you?",3],["Dear future me, about this exact moment...",19],["What do you remember about fiestas when you were a kid?",2],["What does love look like between family?",5],["Write a thank-you note to a coworker or classmate.",16],["What's your favorite font, and why?",18],["What are you running toward?",0],["What if you could speak every language? How would your life be different?",14],["Write about a friend who always makes you laugh.",4],["Write about the first night after a breakup.",6],["What do you remember most about a group project?",11],["Write about a time you were proud of yourself for speaking up.",9],["If you were a song, what would you be and why?",15],["How did you get through a time you were sick?",7],["Are you afraid of being alone? Why or why not?",8],["Write the message you never sent to someone you lost touch with.",17],["Where do you find meaning in helping others?",13],["Is it easier for you to speak up or stay quiet? Why do you think that is?",0],["What's a small dream you could make happen this month?",12],["What's something you're weirdly good at?",1],["What do you want to be remembered for?",0],["What kind of person do you hope future you has become?",19],["What's something about your family you're proud of?",3],["What's something you used to hate that you now appreciate?",10],["What did you learn about love from your parents?",5],["What snack from your childhood do you still crave?",2],["What do you think happens to all the love we never got to give?",0],["What's a memory you'd thank the universe for?",16],["What if you only had one week left?",14],["How have your friendships changed as you've grown up?",4],["What's your go-to order at your favorite café?",18],["What does courage mean to you now, compared to when you were younger?",0],["Be honest: are you afraid of running out of time? Where do you think that comes from?",8],["What's something you're secretly ashamed of, and can you be gentle with yourself about it?",17],["What advice would you give someone going through heartbreak?",6],["What's a skill you want to learn for your career?",11],["What's a trend you followed that you now regret?",15],["What's something you made that you love?",9],["Write about your favorite tita or tito. What do they mean to you?",3],["What would you tell yourself on your worst day?",7],["Do you believe everything happens for a reason?",13],["What does love look like when someone is sick?",5],["What has life taught you about love?",10],["What do you remember about baon when you were a kid?",2],["Are you more of a beach person or a mountain person? Write about what that says about you.",1],["Someday, I want to take a road trip. Write about why.",12],["Dear future me, about your health...",19],["What would your younger self think of your life now?",0],["Write about a friend who lives far away now.",4],["What does faith mean to you now, compared to when you were younger?",0],["Write a thank-you note to your best friend.",16],["What if you had taken that trip? How would your life be different?",14],["What's your favorite time of day, and why?",18],["Which of your habits is really a coping mechanism?",0],["What does love look like when you're scared?",5],["What's your dream for your family?",12],["What do you remember about your mom's cooking when you were a kid?",2],["What has life taught you about forgiveness?",10],["Are you more of a talker or a listener? Write about what that says about you.",1],["Is it easier for you to be alone or be with people? Why do you think that is?",0],["Dear future me, about your growth...",19],["How did you get through a time you had to start over?",7],["If you were a street food, what would you be and why?",15],["Write about your lolo. What do they mean to you?",3],["What do you remember most about your first job?",11],["Write the message you never sent to your sibling.",17],["Where do you find meaning in ordinary days?",13],["Write about a time you were proud of yourself for being patient.",9],["What scares you about growing older?",8],["Write about the moment you knew it was over.",6],["What do you think about when you can't sleep?",0],["What if you knew your future spouse already? How would your life be different?",14],["Write a thank-you note to your dad.",16],["What's your favorite season, and why?",18],["What does forgiveness mean to you now, compared to when you were younger?",0],["Write about a friend who you want to thank.",4],["What do you hope future you does every morning?",19],["What's a family member you wish you knew better?",3],["What does maturity mean to you?",10],["Who inspires your dreams?",12],["What do you always notice first about people?",1],["What did you get in trouble for the most?",2],["What scares you about love?",5],["What do you need to hear right now?",0],["Where do you find meaning in this exact moment?",13],["What do you remember most about recognition day?",11],["What feeling do you avoid the most?",0],["If you were a weather, what would you be and why?",15],["Write the message you never sent to your first love.",17],["Write about what you wouldn't change at all.",6],["Be honest: are you afraid of being too little? Where do you think that comes from?",8],["Write about a time you were proud of yourself for showing up even when tired.",9],["How did you get through a time you felt not good enough?",7],["What's something you take for granted?",16],["Is it easier for you to give love or receive it? Why do you think that is?",0],["What's on your phone's lock screen, and why?",18],["What if money were never a problem again?",14],["What's a lesson a friend taught you?",4],["Write about your mom. What do they mean to you?",3],["When did you stop doing something you loved, and why?",0],["Dear future me, about your hometown...",19],["What has life taught you about starting over?",10],["What does love look like through time spent together?",5],["What do you remember about your first pet when you were a kid?",2],["Someday, I want to see snow. Write about why.",12],["Are you more stubborn or flexible? Write about what that says about you.",1],["Finish this thought, then keep going: \"I am still healing from...\"",0],["What's a wish you've never told anyone?",17],["Be honest: are you afraid of change? Where do you think that comes from?",8],["What's the best advice a boss or teacher gave you?",11],["How do you take care of yourself when life is heavy?",7],["What's a choice you made that changed your life for the better?",9],["What do you value more now than you did five years ago?",0],["What's a memory that still hurts a little?",6],["What's the funniest family moment you remember?",15],["What's a value you'd never compromise on?",13],["Write about a friend who you fought with but forgave.",4],["What if you never had a phone? How would your life be different?",14],["What's your favorite texture, and why?",18],["Write a thank-you note to your lola or lolo.",16],["Someday, I want to start a business. Write about why.",12],["Who was your first crush?",2],["What's a strong opinion you have about something small?",1],["What promise do you want to make to future you?",19],["What's a boundary you learned to set?",10],["What's a lesson from your grandparents you still remember?",3],["Finish this thought, then keep going: \"I am slowly letting go of...\"",0],["What makes you feel safe with someone?",5],["What is enough for you?",0],["Where do you find meaning in your faith?",13],["Finish this thought, then keep going: \"If I'm honest, I want...\"",0],["Write about a time you were proud of yourself for choosing yourself.",9],["Write the message you never sent to someone who is no longer alive.",17],["What do you remember most about your thesis or big project?",11],["How did you get through a time you felt lost?",7],["What scares you about success?",8],["If you were a emoji, what would you be and why?",15],["What would you do if you had one free year?",12],["Write about the thing that made you finally stop waiting.",6],["Write about a friend who would describe you perfectly.",4],["Write a thank-you note to today.",16],["What's your favorite way to relax, and why?",18],["Dear future me, about rest...",19],["Write about your family's group chat. What do they mean to you?",3],["What if you were born ten years earlier? How would your life be different?",14],["Are you more of an early bird or a night owl? Write about what that says about you.",1],["What would you change if you stopped comparing yourself to others?",0],["What has life taught you about money?",10],["What do you remember about your best friend when you were a kid?",2],["What does love look like when you're both busy?",5],["What does being brave look like in your everyday life?",0],["Someday, I want to live abroad. Write about why.",12],["Finish this thought, then keep going: \"I stopped believing that...\"",0],["What's a childhood memory that still makes you laugh?",2],["Do you fall in love fast or slow?",5],["What are you doing today that future you will thank you for?",19],["How have your priorities changed?",10],["What role do you play in your family?",3],["What do you do when you're overwhelmed?",1],["What's your favorite season, and what do you love about it?",18],["What are you pretending to be okay with?",0],["What's a gift you received that meant a lot?",16],["What do you wish your friends knew about you?",4],["What if you could go back and give your younger self a gift?",14],["What's your go-to joke?",15],["What's a small thing that kept you going?",7],["What's a habit you hide?",17],["What does a good person look like to you?",13],["How do you know you've moved on?",6],["Be honest: are you afraid of public speaking? Where do you think that comes from?",8],["What's a small daily win you're proud of?",9],["What does success at work mean to you?",11],["What does failure mean to you now, compared to when you were younger?",0],["Dear future me, about your kindness...",19],["What do you think you'll regret not doing?",0],["What do you remember about family trips when you were a kid?",2],["What does money mean to you now, compared to when you were younger?",0],["Someday, I want to learn an instrument. Write about why.",12],["What has life taught you about failure?",10],["What does love look like when someone is grieving?",5],["Are you more of an overthinker or an underthinker? Write about what that says about you.",1],["Write about your family's favorite saying. What do they mean to you?",3],["What's your favorite smell, and why?",18],["Write about a friend who changed your life.",4],["Write a thank-you note to the version of you who didn't give up.",16],["What if you never got your heart broken? How would your life be different?",14],["If you could ask the universe one question, what would it be?",0],["If you were a snack, what would you be and why?",15],["Write about a time you were proud of yourself for staying calm.",9],["How did you get through a time you were betrayed?",7],["What do you remember most about your first interview?",11],["Write the message you never sent to your future partner.",17],["Where do you find meaning in music?",13],["Be honest: are you afraid of being forgotten? Where do you think that comes from?",8],["Write about an apology you never received.",6],["What part of you have you hidden to be liked?",0],["What's a love story you admire?",5],["What's a failure that taught you something important?",10],["What do you collect, or what did you used to collect?",1],["What does happiness mean to you now, compared to when you were younger?",0],["What's a childhood memory that still makes you sad?",2],["What's something your family doesn't know about you?",3],["What do you hope future you never forgets?",19],["What's a dream you had as a kid that still makes you smile?",12],["What if you could fix one thing in the world?",14],["What's a tiny habit that makes your day better?",18],["Who's a friend you've never told how much they mean to you?",4],["What's a moment today that felt like a blessing?",16],["What would make today feel worth it?",0],["What's the silliest argument you've ever had?",15],["What's a lesson from heartbreak you'll carry forever?",6],["What's a fear that turned out to be wrong?",8],["When did you choose kindness when it was hard?",9],["What's a thank-you you never said?",17],["What's something that feels like a miracle to you?",13],["Do you work to live, or live to work?",11],["What did hard times show you about the people around you?",7],["Finish this thought, then keep going: \"What really matters to me is...\"",0],["What has life taught you about honesty?",10],["What do you want more: to be understood, or to be loved?",0],["Are you more of a team player or a solo player? Write about what that says about you.",1],["Someday, I want to see the northern lights. Write about why.",12],["What do you remember about your siblings or cousins when you were a kid?",2],["Dear future me, about your home...",19],["What does love look like in a text message?",5],["Write about the family member who believed in you first. What do they mean to you?",3],["Write about a friend who you met most recently.",4],["Write a thank-you note to the morning sun.",16],["What's your favorite holiday, and why?",18],["What does love mean to you now, compared to when you were younger?",0],["What if you could fly? How would your life be different?",14],["What would you do differently if no one was watching?",0],["Write about a time you were proud of yourself for learning from a mistake.",9],["Where do you find meaning in the night?",13],["What do you remember most about pulling an all-nighter?",11],["How did you get through a time you were scared of the future?",7],["Write about the friend who stayed with you.",6],["Be honest: are you afraid of starting over? Where do you think that comes from?",8],["If you were a flower, what would you be and why?",15],["Write the message you never sent to your boss or classmate.",17],["Finish this thought, then keep going: \"Deep down, I know...\"",0],["What do you remember about Sunday mornings when you were a kid?",2],["Write about the way your family handles hard times. What do they mean to you?",3],["What has life taught you about boundaries?",10],["Dear future me, about what really matters...",19],["What does love look like on an ordinary Tuesday?",5],["Are you more nostalgic or forward-looking? Write about what that says about you.",1],["What's your dream for your hometown?",12],["What's the difference between who you are and who you show?",0],["Write about a friend who knows your secrets.",4],["What if you were an only child? How would your life be different?",14],["What's your favorite kind of sky, and why?",18],["Write a thank-you note to your younger self.",16],["What lie do you tell most often, even a small one?",0],["What do you hope future you has more of?",19],["What would you want your future partner to know about you?",5],["What does your family call you, and why?",3],["Is it easier for you to hold on or let go? Why do you think that is?",0],["How do you want to grow this year?",10],["What's stopping you from chasing your biggest dream?",12],["What song describes you right now?",1],["What did summer vacation feel like when you were young?",2],["Write about a time you were proud of yourself for letting go.",9],["Write about a love that wasn't meant to stay.",6],["How did you get through a time you failed?",7],["Where do you find meaning in waiting?",13],["Who makes you feel brave?",8],["What do you remember most about your first boss?",11],["Write the message you never sent to someone who helped you.",17],["If you were a app, what would you be and why?",15],["What do you think love asks of you?",0],["What's a song you've had on repeat lately?",18],["What if you could hear what people really think of you?",14],["What's a trip you took with friends that you'll never forget?",4],["Who made you who you are, and how?",16],["Finish this thought, then keep going: \"I am tired of...\"",0],["What has life taught you about being happy?",10],["What are you grateful you didn't get?",0],["Dear future me, about your love life...",19],["What do you remember about playing outside until dark when you were a kid?",2],["Are you more of a city person or a province person? Write about what that says about you.",1],["Write about the family you hope to have someday. What do they mean to you?",3],["What does love look like after many years together?",5],["What's your dream for your finances?",12],["What's a fear you overcame during a hard time?",7],["Is it easier for you to trust people or doubt them? Why do you think that is?",0],["What's a sorry you never said?",17],["Be honest: are you afraid of being too much? Where do you think that comes from?",8],["What's a goal you reached this year?",9],["How do you find meaning in hard times?",13],["What's a moment you laughed at the worst possible time?",15],["What would you change about your current job or studies?",11],["What would you say to the person who broke your heart?",6],["What if you could change one decision? How would your life be different?",14],["What's your favorite ulam, and why?",18],["What is your relationship with time?",0],["Write about a friend who you still think about.",4],["Write a thank-you note to the person who makes you laugh the most.",16],["When did you first see your parents as people, not just parents?",3],["What do you hope future you has less of?",19],["Do you control your life, or does your life control you?",0],["What's a lesson your parents tried to teach you that you finally get?",10],["What color feels most like you, and why?",1],["How do you know when you really love someone?",5],["What part of your childhood do you want to give to your own kids someday?",2],["What's your dream for your career?",12],["Finish this thought, then keep going: \"I am proud that I...\"",0],["Write the message you never sent to someone you admire from afar.",17],["Write about a time you were proud of yourself for asking for help.",9],["What do you remember most about high school?",11],["What does your anxiety whisper to you?",8],["How did you get through a long night of overthinking?",7],["If you were a kitchen appliance, what would you be and why?",15],["What would you do if you weren't tired all the time?",0],["Where do you find meaning in your mistakes?",13],["Write about the version of you before your heart broke.",6],["What's your favorite color, and why?",18],["Write a thank-you note to your body.",16],["Write about a friend who you hope is doing okay.",4],["What if you had left sooner? How would your life be different?",14],["Are you more of a texter or a caller? Write about what that says about you.",1],["What do you remember about being sick at home when you were a kid?",2],["What would you try if you knew it would work?",12],["What does love look like in silence?",5],["Dear future me, about your family...",19],["Write about the family member you're most like. What do they mean to you?",3],["What has life taught you about letting go?",10],["Finish this thought, then keep going: \"One day I want to...\"",0],["How do you know when you need help?",7],["What's a question you'd like to spend the rest of your life answering?",0],["What would you say to someone whose heart you broke?",6],["Finish this thought, then keep going: \"I secretly hope that...\"",0],["Be honest: are you afraid of never finding the right person? Where do you think that comes from?",8],["What's the funniest typo or autocorrect you've sent?",15],["What do you want your life to stand for?",13],["What's the truth behind a smile you faked?",17],["What's a moment you were proud to be you?",9],["What did your first paycheck feel like?",11],["What part of your childhood do you not want to repeat?",2],["What's something about yourself you're thankful for?",16],["How do you make new friends?",4],["What do you do differently now when you're upset?",10],["What's your favorite thing about your room?",18],["What if you could master any skill instantly?",14],["What does success mean to you when nobody's keeping score?",0],["What does commitment mean to you?",5],["What would your family say is your best quality?",3],["When do you feel most confident?",1],["What do you hope future you is still curious about?",19],["What's your dream for your 30s?",12],["Finish this thought, then keep going: \"I keep coming back to...\"",0],["Someday, I want to have a garden. Write about why.",12],["What part of your story are you ready to rewrite?",0],["What does love look like when there's no money?",5],["Are you more serious or playful? Write about what that says about you.",1],["What has life taught you about kindness?",10],["Write about your chosen family. What do they mean to you?",3],["Dear future me, about your career...",19],["What do you remember about the first time you felt grown up when you were a kid?",2],["Write about a friend who you'd trust with anything.",4],["What would you do today if you trusted yourself completely?",0],["What's your favorite app, and why?",18],["What if you could read minds? How would your life be different?",14],["Write about what you'd do differently.",6],["Write a thank-you note to a teacher.",16],["Where do you find meaning in the morning?",13],["How did you get through a time you felt burned out?",7],["Write the message you never sent to a teacher.",17],["What do you remember most about your favorite classmate?",11],["If you were a movie genre, what would you be and why?",15],["What would you say back to it?",8],["Write about a time you were proud of yourself for believing in yourself.",9],["Is it easier for you to cry or laugh? Why do you think that is?",0],["What did you think adults did all day?",2],["What do you need to stop apologizing for?",0],["What do you hope future you has forgiven?",19],["What's something you stopped apologizing for?",10],["What makes you feel misunderstood?",1],["What does your future family look like, if you want one?",12],["What's a hard conversation you've had with your family?",3],["Finish this thought, then keep going: \"I am most afraid that...\"",0],["What small gesture makes you feel the most loved?",5],["What if you could have dinner with anyone, living or not?",14],["What's the best compliment you got recently?",18],["What's a friendship that started in an unexpected way?",4],["What's a second chance you're grateful for?",16],["What's the kindest thing someone did for you while you were heartbroken?",6],["Be honest: are you afraid of disappointing your parents? Where do you think that comes from?",8],["What's a ritual that helps you feel grounded?",13],["What makes a day feel wasted to you, and is that fair?",0],["What's your weirdest habit?",15],["What's something you wish someone would ask you about?",17],["Who do you want to thank for helping you survive?",7],["What's something you're secretly good at that your job doesn't use?",11],["What's a time you didn't give up?",9],["Finish this thought, then keep going: \"I wish I could tell everyone that...\"",0],["Are you more competitive or easygoing? Write about what that says about you.",1],["Write about the family member you call when things go wrong. What do they mean to you?",3],["What do you remember about your first phone or gadget when you were a kid?",2],["Someday, I want to build my own house. Write about why.",12],["What has life taught you about change?",10],["What do you think your pain is trying to teach you?",0],["Dear future me, about your heart...",19],["What does love look like when you have to say sorry?",5],["What if you had stayed? How would your life be different?",14],["What's your favorite emoji, and why?",18],["Write about a friend who always remembers your birthday.",4],["Write a thank-you note to your faith.",16],["Finish this thought, then keep going: \"I am learning to...\"",0],["How did you get through a time everything changed at once?",7],["Write about a time you were proud of yourself for starting over.",9],["If you were a animal, what would you be and why?",15],["Where do you find meaning in small routines?",13],["Write the message you never sent to your parents.",17],["Write about learning to be alone.",6],["What's a risk you're scared to take but want to?",8],["What would change if you treated yourself like someone you love?",0],["What do you remember most about a job you quit?",11],["Are you more private or open? Write about what that says about you.",1],["What has life taught you about yourself?",10],["What's your dream for your health?",12],["Dear future me, about the people you lost...",19],["Write about your cousins. What do they mean to you?",3],["What do you remember about your bedroom when you were a kid?",2],["What does love look like during an argument?",5],["Who taught you how to love, and what did they get right?",0],["Write a thank-you note to your siblings.",16],["Write about a friend who you lost touch with.",4],["What does beauty mean to you now, compared to when you were younger?",0],["What's your favorite place in your house, and why?",18],["What if you could live one more year as a kid? How would your life be different?",14],["What do you wish you could say to the person you were last year?",0],["Be honest: are you afraid of the dark? Where do you think that comes from?",8],["How did you get through a time you couldn't stop crying?",7],["Write about a time you were proud of yourself for taking care of your health.",9],["Where do you find meaning in silence?",13],["If you were a drink, what would you be and why?",15],["What's your comfort food, and what memory comes with it?",1],["Write about an apology you never gave.",6],["Write the message you never sent to an old crush.",17],["What kind of love do you hope to give someday?",5],["What do you remember most about graduation day?",11],["What would you want to be famous for, if anything?",12],["Finish this thought, then keep going: \"I deserve...\"",0],["What was the bravest thing you did as a kid?",2],["What song do you think future you will still love?",19],["What's a family photo that means a lot to you?",3],["What's a compliment you've learned to accept?",10],["What's something you and your friends always do together?",4],["What are you afraid will happen if you slow down?",0],["What if you had stayed in touch with someone you lost?",14],["What's your favorite way to spend a Sunday?",18],["What's a door that closed that you're grateful for now?",16],["What does home mean to you now, compared to when you were younger?",0],["Write about family dinners. What do they mean to you?",3],["What do you remember about your neighborhood when you were a kid?",2],["What does love look like when it's new?",5],["What's your dream for your retirement?",12],["Are you more cautious or daring? Write about what that says about you.",1],["What has life taught you about people?",10],["Dear future me, about your inner child...",19],["What does your body know that your mind keeps ignoring?",0],["What would you say to God or the universe right now?",13],["What's the funniest thing you believed as a kid?",15],["Do you believe some people are meant to be temporary?",6],["What's a hard time you're still in right now?",7],["Where do you see your career in five years?",11],["What fear do you think you inherited from your family?",8],["What's a question you're too afraid to ask anyone?",17],["What's something you overcame that still amazes you?",9],["What are you overthinking right now?",0],["What if you could start over at 18? How would your life be different?",14],["Write a thank-you note to your hometown.",16],["Write about a friend who you admire.",4],["What's your favorite number, and why?",18],["Finish this thought, then keep going: \"I forgive myself for...\"",0],["What does your ideal day off look like?",1],["Someday, I want to give my parents a vacation. Write about why.",12],["What do you hope future you has built?",19],["What did you think love was when you were younger?",5],["What would you tell your 7-year-old self?",2],["How is the family you want to build different from the one you grew up in?",3],["What do you think makes a life well lived?",0],["What's a lesson you learned from a stranger?",10],["Finish this thought, then keep going: \"The thing I need most is...\"",0],["Be honest: are you afraid of being judged? Where do you think that comes from?",8],["Write about the place you couldn't visit for a while.",6],["If you were a holiday, what would you be and why?",15],["Write about a time you were proud of yourself for being kind to your parents.",9],["How did you get through the pandemic years?",7],["What do you remember most about a time you were late?",11],["Write the message you never sent to your best friend.",17],["Where do you find meaning in your work?",13],["What's your favorite book, and why?",18],["Write a thank-you note to someone you never got to thank.",16],["What would you keep if you had to start your life over with nothing?",0],["What if you lived on a farm? How would your life be different?",14],["Write about a friend who makes ordinary days fun.",4],["What has life taught you about success?",10],["Write about the family member you miss the most. What do they mean to you?",3],["Are you more of a homebody or an adventurer? Write about what that says about you.",1],["Dear future me, about your biggest goal...",19],["What does a successful life look like to you?",12],["Finish this thought, then keep going: \"The bravest thing I could do is...\"",0],["What does love look like from far away?",5],["What do you remember about your favorite teacher when you were a kid?",2],["What are you still trying to prove, and to whom?",0],["What do you wish people understood about what you went through?",7],["What would you attempt this year if fear took a day off?",8],["What would your reality show be called?",15],["What would you say if you knew no one would ever read this?",17],["What's a moment at school or work you'll never forget?",11],["What do you think you were put on this earth to do?",13],["What does closure mean to you?",6],["Finish this thought, then keep going: \"Right now, my life feels like...\"",0],["What's a way you've grown that only you can see?",9],["What does your group chat talk about the most?",4],["What if today were the first day of a completely new life?",14],["What are three things that went right today?",16],["What's something small you're looking forward to?",18],["What made you feel safe as a child?",2],["What has love cost you, and was it worth it?",5],["What do you want to say to future you on your next birthday?",19],["Someday, I want to get married. Write about why.",12],["Who is the glue that holds your family together?",3],["Which of your habits would surprise people?",1],["What do you think people see when they look at you?",0],["What does growth feel like for you, while it's happening?",10],["What would you write on a note to the whole world?",0],["Write about a time you were proud of yourself for being honest.",9],["Is it easier for you to remember or forget? Why do you think that is?",0],["Be honest: are you afraid of being seen as weak? Where do you think that comes from?",8],["Write the message you never sent to the person you think about late at night.",17],["Where do you find meaning in suffering?",13],["What do you remember most about elementary school?",11],["How did you get through a time money was tight?",7],["If you were a season, what would you be and why?",15],["Write about the day you realized you were healing.",6],["Write about a friend who you'd travel the world with.",4],["What if you could see one year into the future? How would your life be different?",14],["What's your favorite childhood candy, and why?",18],["What do you remember about your school uniform when you were a kid?",2],["Someday, I want to learn a new language. Write about why.",12],["What has life taught you about time?",10],["What does love look like in small details?",5],["Write a thank-you note to someone who left but taught you something.",16],["Dear future me, about your fears...",19],["Write about your family's reunions. What do they mean to you?",3],["Are you more soft or tough? Write about what that says about you.",1],["Which of your dreams are really yours, and which were given to you?",0],["Finish this thought, then keep going: \"Lately I've been feeling...\"",0]]};
+var LIVE = true, LV = null;
+var TOPICS = DATA.feelings, QS = DATA.questions, TOTAL = QS.length, DAY = 864e5;
+var MOODS = [['loved','\u{1F970}','Loved','#FF7EB0'],['good','\u{1F60A}','Good','#FFB3CF'],['meh','\u{1F610}','Meh','#F3D6E2'],['low','\u{1F614}','Low','#C9B6F2'],['heavy','\u{1F62D}','Heavy','#9F8BE0']];
+var REACTS = ['❤️','\u{1F979}','\u{1F602}','\u{1F917}','✨'];
+var AVATARS = ['\u{1F338}','\u{1F430}','\u{1F431}','\u{1F98B}','\u{1F353}','\u{1F319}','⭐','\u{1F43B}','\u{1F337}','\u{1F351}','\u{1F425}','\u{1F380}','\u{1F984}','\u{1F36E}','\u{1F427}','☁️'];
+var COLORS = ['#FFD1E3','#FFE0C7','#E6DAFF','#D7F2E3','#D6ECFF','#FFF1B8'];
+var app=document.getElementById('app'),layer=document.getElementById('layer');
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function words(t){t=(t||'').trim();return t?t.split(/\s+/).length:0;}
+function fmtD(ts){return new Date(ts).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}
+function fmtDT(ts){var d=new Date(ts);return fmtD(ts)+', '+d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});}
+function dayKey(ts){var d=new Date(ts);return d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate();}
+function sod(ts){var d=new Date(ts);d.setHours(0,0,0,0);return d.getTime();}
+function moodOf(id){for(var i=0;i<MOODS.length;i++)if(MOODS[i][0]===id)return MOODS[i];return null;}
+
+/* ---------- icons ---------- */
+function svg(p,s){s=s||20;return '<svg aria-hidden="true" width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';}
+var I={
+ home:svg('<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/>'),
+ list:svg('<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>'),
+ shelf:svg('<path d="M4 4v16M9 4v16M14 5l4 15M4 20h16"/>'),
+ me:svg('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'),
+ gear:svg('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.8 1.2V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-2.7-1.1l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 3.2 14H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.1-2.7l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 9.8 3.2V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0 1.2 2.8H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/>'),
+ back:svg('<path d="M15 18l-6-6 6-6"/>'),next:svg('<path d="M9 18l6-6-6-6"/>'),
+ chev:svg('<path d="M9 18l6-6-6-6"/>',18),
+ shuffle:svg('<path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/>'),
+ heart:svg('<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/>',16),
+ heartF:'<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>',
+ eyeOff:svg('<path d="M17.9 17.9A10.4 10.4 0 0 1 12 20c-7 0-11-8-11-8a18.5 18.5 0 0 1 5.1-5.9M9.9 4.2A9.1 9.1 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.2 3.2"/><path d="M14.1 14.1a3 3 0 1 1-4.2-4.2"/><path d="M1 1l22 22"/>',16),
+ eye:svg('<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>',18),
+ music:svg('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',16),
+ skip:svg('<path d="M5 4l10 8-10 8z"/><path d="M19 5v14"/>',16),
+ check:svg('<path d="M20 6 9 17l-5-5"/>',16),
+ edit:svg('<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',16),
+ trash:svg('<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>',16),
+ plus:svg('<path d="M12 5v14M5 12h14"/>'),
+ search:svg('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',18),
+ lock:svg('<rect x="4" y="11" width="16" height="10" rx="3"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',18),
+ focus:svg('<path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/>',16),
+ clock:svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',16),
+ again:svg('<path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/>',16),
+ share:svg('<path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M16 6l-4-4-4 4M12 2v14"/>',16),
+ pin:svg('<path d="M12 17v5"/><path d="M9 3h6l-1 6 4 4H6l4-4z"/>',16),
+ smile:svg('<circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>',16),
+ sparkle:svg('<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',16),
+ cal:svg('<rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/>',16),
+ print:svg('<path d="M6 9V2h12v7"/><rect x="6" y="14" width="12" height="8"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>',18),
+ download:svg('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/>',18),
+ cloud:svg('<path d="M18 10h-1.3A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>',18),
+ cloudOff:svg('<path d="M22.6 17.6A5 5 0 0 0 18 10h-1.3A8 8 0 0 0 6 4.5M5 5A8 8 0 0 0 9 20h9a5 5 0 0 0 1.7-.3"/><path d="M1 1l22 22"/>',16),
+ phone:svg('<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/>',18),
+ out:svg('<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/>',18),
+ key:svg('<circle cx="8" cy="15" r="4"/><path d="M10.8 12.2 20 3M17 6l3 3M14 9l2 2"/>',18),
+ copy:svg('<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',18),
+ link:svg('<path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/>',18),
+ pages:svg('<path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h4"/>',18),
+ stats:svg('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',18),
+ sticker:svg('<path d="M15.5 3H6a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h9l6-6V6a3 3 0 0 0-3-3"/><path d="M15 21v-3a3 3 0 0 1 3-3h3"/>',18),
+ gift:svg('<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/>',18),
+ x:svg('<path d="M18 6 6 18M6 6l12 12"/>',22),
+ sun:svg('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',16),
+ moon:svg('<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/>',16),
+ auto:svg('<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>',16),
+ g:'<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.5 12.3c0-.8-.1-1.5-.2-2.2H12v4.2h5.9a5 5 0 0 1-2.2 3.3v2.7h3.5c2.1-1.9 3.3-4.7 3.3-8z"/><path fill="#34A853" d="M12 23c3 0 5.5-1 7.2-2.7l-3.5-2.7c-1 .7-2.2 1-3.7 1-2.9 0-5.3-1.9-6.2-4.5H2.2v2.8A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.8 14.1a6.6 6.6 0 0 1 0-4.2V7.1H2.2a11 11 0 0 0 0 9.8z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.2 1.7l3.1-3.1A11 11 0 0 0 2.2 7.1l3.6 2.8C6.7 7.3 9.1 5.4 12 5.4z"/></svg>'
+};
+
+/* ---------- storage (mockup: this device only) ---------- */
+var DBKEY='aboutme-mock-db-v1',DEVKEY=LIVE?'aboutme-dev-v1':'aboutme-mock-dev-v1',mem={};
+function lsGet(k){try{var v=localStorage.getItem(k);if(v)return JSON.parse(v);}catch(e){}return mem[k]?JSON.parse(mem[k]):null;}
+function lsSet(k,v){var s=JSON.stringify(v);mem[k]=s;try{localStorage.setItem(k,s);}catch(e){}}
+function qi(t){for(var i=0;i<QS.length;i++)if(QS[i][0]===t)return i+1;return null;}
+function qByTopic(topic,k){var c=0;for(var i=0;i<QS.length;i++){if(TOPICS[QS[i][1]]===topic){if(c===k)return i+1;c++;}}return 1;}
+function newBook(nick){return {nick:nick,ownerHash:null,readerHash:null,readerPlain:null,readerOn:true,profile:{avatar:AVATARS[0],color:COLORS[0],bio:'',pinned:null},answers:{},skipped:{},free:[],samples:false,createdAt:Date.now()};}
+function freshDb(){
+  var now=Date.now();
+  function at(days,h,m){var t=new Date(now-days*DAY);t.setHours(h,m||0,0,0);return Math.min(t.getTime(),now-60000);}
+  var d={accounts:{me:{name:'John Laurice',email:'you@gmail.com'},jam:{name:'Jam',email:'jam@gmail.com'},mika:{name:'Mika Santos',email:'mika@gmail.com'}},
+    authors:{},usernames:{},reactions:{},shelves:{},seen:{}};
+  var mk=newBook('mika');mk.readerPlain='mika123';mk.profile={avatar:'\u{1F430}',color:'#E6DAFF',bio:'coffee, sunsets & overthinking \u{1F319}',pinned:null};
+  var S=[['Who I am',0,'That I’m always calm. I just panic quietly and very politely.','good',3],
+   ['Deep thoughts',0,'I would wear the yellow dress to the grocery. I would sing in the car with the windows down. I would say what I actually think, kindly.','loved',5],
+   ['Little things',0,'Around 11 PM, when the house is quiet and the tea is still warm.','good',8],
+   ['Dreams',0,'Ten years from now: a small café with too many plants and a reading corner. My mom running the cashier and judging everyone’s orders.','loved',12],
+   ['Childhood',0,'Rain on hot pavement. It smells like Saturday afternoons at my lola’s house.','good',15],
+   ['Gratitude',0,'My younger brother. He doesn’t know how many times he saved my day with a dumb meme.','loved',20],
+   ['Hard times',0,'The year I moved to Manila alone. I learned how to cook, how to cry quietly, and how to call home more.','low',27]];
+  S.forEach(function(s,i){var n=qByTopic(s[0],s[1]);mk.answers[n]={text:s[2],answeredAt:at(s[4],21,10),editedAt:null,mood:s[3]};if(i===1)mk.profile.pinned=n;});
+  d.authors.mika=mk;d.usernames.mika='mika';
+  return d;
+}
+function seedMine(d,uid){
+  var b=d.authors[uid],now=Date.now();
+  function at(days,h,m){var t=new Date(now-days*DAY);t.setHours(h,m||0,0,0);return Math.min(t.getTime(),now-60000);}
+  var S=[
+   ['Who I am',0,'That I’m always okay. I’m good at looking fine. I’m still learning to say “not today” out loud.','meh',0,20],
+   ['Deep thoughts',1,'Being taken seriously when I talk about my dreams. I laugh it off first so nobody can laugh at it before me.','low',1,23],
+   ['Growth',0,'That being busy is not the same as being okay. I learned it in the hospital waiting room.','meh',2,22],
+   ['Love',0,'Like being remembered in small ways. Someone saving the last piece of leche flan for you without saying anything.','loved',3,21],
+   ['Childhood',0,'Fresh pandesal in a paper bag and my lolo’s radio playing old songs.','good',3,8],
+   ['Funny',0,'Waving back at someone in the mall who was waving at the person behind me. I committed. I kept waving.','good',5,19],
+   ['Gratitude',0,'Mama. For every 5 AM she woke up so that I didn’t have to worry about anything.','loved',6,1],
+   ['Dreams',0,'A small house near the sea, a dog named Mais, and enough peace that Sunday never feels short.','loved',9,22],
+   ['Fears',0,'That I’ll wake up at 40 and realize I lived carefully instead of fully.','heavy',12,23],
+   ['Friends',0,'Paolo. Grade 2. He shared his baon with me every day for a year and never made it a big deal.','good',16,20],
+   ['Future self',0,'I hope you still sing badly in the shower. I hope you called Mama today.','loved',22,21],
+   ['Little things',0,'2 AM. The world is quiet and my thoughts are loud, but kind.','meh',30,2]
+  ];
+  S.forEach(function(s){var n=qByTopic(s[0],s[1]);b.answers[n]={text:s[2],answeredAt:at(s[4],s[5],12),editedAt:null,mood:s[3]};});
+  var nf=qByTopic('Who I am',0);b.answers[nf].fav=true;
+  var nd=qByTopic('Deep thoughts',1);b.answers[nd].hidden=true;
+  var nl=qByTopic('Love',0);b.answers[nl].fav=true;b.answers[nl].song={url:'https://www.youtube.com/results?search_query=acoustic+love+song',title:'The song for this one'};
+  var ng=qByTopic('Growth',0);b.answers[ng].versions=[{text:'Honestly? Nothing yet. I’m still figuring it out.',at:at(370,21,0),mood:'meh'}];
+  var nc=qByTopic('Dreams',0);b.answers[nc].lockUntil=sod(now+64*DAY);
+  var ne=qByTopic('Childhood',0);b.answers[ne].editedAt=at(1,9,30);
+  b.skipped[qByTopic('Heartbreak',0)]=true;
+  b.free.push({id:'f1',title:'A random Tuesday',text:'Nothing big happened today. I just felt proud that I drank enough water and finished my work early.',answeredAt:at(4,21,0),editedAt:null});
+  b.profile.pinned=nl;b.samples=true;
+  d.reactions[uid]=d.reactions[uid]||{};
+  d.reactions[uid]['q'+nl]={mika:{e:'\u{1F979}',at:at(0,9,0)},jam:{e:'❤️',at:at(1,10,0)}};
+  d.reactions[uid]['q'+nf]={mika:{e:'\u{1F917}',at:at(0,8,0)}};
+  d.reactions[uid]['q'+qByTopic('Funny',0)]={jam:{e:'\u{1F602}',at:at(2,12,0)},mika:{e:'\u{1F602}',at:at(2,13,0)}};
+  d.seen[uid]=d.seen[uid]||{};d.seen[uid].stickers=stickersFor(b,uid,d).filter(function(s){return s.ok;}).map(function(s){return s.id;});
+  d.seen[uid].rx=now-1.5*DAY;
+}
+var db=LIVE?null:(lsGet(DBKEY)||freshDb());
+function fixHashes(){if(!db)return;Object.keys(db.authors).forEach(function(u){var b=db.authors[u];if(b.readerPlain&&!b.readerHash)hash(b.readerPlain).then(function(h){b.readerHash=h;saveDb();});});}
+var dev=lsGet(DEVKEY)||{theme:'auto',size:'m',account:null,offline:false,pending:0,visits:{},pos:{}};
+function saveDb(){if(LIVE){if(LV)LV.sync();}else lsSet(DBKEY,db);}
+function saveDev(){lsSet(DEVKEY,dev);}
+
+/* ---------- hashing ---------- */
+function hash(pw){var salt='aboutme|';try{if(window.crypto&&crypto.subtle&&window.TextEncoder){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(salt+pw)).then(function(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return ('0'+x.toString(16)).slice(-2);}).join('');});}}catch(e){}
+  var h=2166136261,s=salt+pw;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return Promise.resolve('f'+(h>>>0).toString(16));}
+
+/* ---------- state ---------- */
+var S={unlocked:false,screen:null,params:{},stack:[],editing:false,again:null,fresh:{},filter:'All',query:'',readUid:null,readOK:{},bookIdx:0,bookDir:'',wrapIdx:0,calMonth:null,printHidden:true,saveT:null,pendingSave:null,prevVisit:0,rlFilter:'All'};
+function me(){return dev.account;}
+function myBook(){return db&&me()?db.authors[me()]:null;}
+function isAuthor(){var b=myBook();return !!(b&&b.ownerHash);}
+function rBook(){return S.readUid?db.authors[S.readUid]:null;}
+function locked(a){return !!(a&&a.lockUntil&&a.lockUntil>Date.now());}
+
+/* ---------- theme ---------- */
+var mq=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):null;
+function applyPrefs(){var t=dev.theme==='auto'?(mq&&mq.matches?'dark':'light'):dev.theme;document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-size',dev.size);var m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content',t==='dark'?'#1C1018':'#FFF6FA');}
+if(mq&&mq.addEventListener)mq.addEventListener('change',function(){if(dev.theme==='auto')applyPrefs();});
+
+/* ---------- data helpers ---------- */
+function count(b){return Object.keys((b||myBook()).answers).length;}
+function nextUnanswered(b){b=b||myBook();for(var n=1;n<=TOTAL;n++)if(!b.answers[n]&&!b.skipped[n])return n;return null;}
+function strHash(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return Math.abs(h);}
+function qotd(b){var c=[];for(var n=1;n<=TOTAL;n++)if(!b.answers[n]&&!b.skipped[n])c.push(n);return c.length?c[strHash(dayKey(Date.now())+'me')%c.length]:null;}
+function activity(b){var s={};Object.keys(b.answers).forEach(function(k){var a=b.answers[k];s[dayKey(a.answeredAt)]=1;if(a.editedAt)s[dayKey(a.editedAt)]=1;});b.free.forEach(function(f){s[dayKey(f.answeredAt)]=1;});return s;}
+function streak(b){var s=activity(b),cur=0,t=sod(Date.now());if(!s[dayKey(t)])t-=DAY;while(s[dayKey(t)]){cur++;t-=DAY;}
+  var ks=Object.keys(s).map(function(k){var p=k.split('-');return new Date(+p[0],+p[1],+p[2]).getTime();}).sort(function(a,b){return a-b;}),best=0,run=0,prev=null;
+  ks.forEach(function(k){run=(prev!==null&&Math.round((k-prev)/DAY)===1)?run+1:1;best=Math.max(best,run);prev=k;});return {cur:cur,best:best};}
+function onThisDay(b){var now=new Date(),out=[],s0=sod(Date.now());Object.keys(b.answers).forEach(function(k){var a=b.answers[k],d=new Date(a.answeredAt);if(locked(a))return;if(a.answeredAt<s0&&d.getDate()===now.getDate()){var m=(now.getFullYear()-d.getFullYear())*12+now.getMonth()-d.getMonth();if(m>0)out.push({n:+k,m:m});}});return out;}
+function agoLabel(m){if(m%12===0){var y=m/12;return y===1?'1 year ago today':y+' years ago today';}return m===1?'1 month ago today':m+' months ago today';}
+function lastWritten(b){var best=null;Object.keys(b.answers).forEach(function(k){var a=b.answers[k],t=Math.max(a.answeredAt,a.editedAt||0);if(locked(a))return;if(!best||t>best.t)best={n:+k,t:t};});return best;}
+function readerItems(b){var out=[];Object.keys(b.answers).map(Number).sort(function(x,y){return x-y;}).forEach(function(n){var a=b.answers[n];if(a.hidden||locked(a)||!a.text.trim())return;out.push({key:'q'+n,n:n,q:QS[n-1][0],f:TOPICS[QS[n-1][1]],a:a});});
+  b.free.forEach(function(p){if(!p.hidden&&p.text.trim())out.push({key:'f'+p.id,free:true,q:p.title||'Untitled page',f:'Free page',a:p});});return out;}
+function rxFor(uid,key){return (db.reactions[uid]||{})[key]||{};}
+function rxSummary(uid,key){var r=rxFor(uid,key),c={};Object.keys(r).forEach(function(k){c[r[k].e]=(c[r[k].e]||0)+1;});return c;}
+function newRx(uid){var seen=(db.seen[uid]||{}).rx||0,out=[];var R=db.reactions[uid]||{};Object.keys(R).forEach(function(key){Object.keys(R[key]).forEach(function(who){var x=R[key][who];if(x.at>seen)out.push({key:key,who:who,e:x.e,at:x.at});});});return out.sort(function(a,b){return b.at-a.at;});}
+function whoName(uid){var b=db.authors[uid];if(b&&b.nick)return '@'+b.nick;var a=db.accounts[uid];return a?a.name.split(' ')[0]:'Someone';}
+
+/* ---------- stickers ---------- */
+function stickersFor(b,uid,d){
+  d=d||db;var n=Object.keys(b.answers).length,st=streak(b),A=Object.keys(b.answers).map(function(k){return b.answers[k];});
+  var per={};Object.keys(b.answers).forEach(function(k){var t=TOPICS[QS[k-1][1]];per[t]=(per[t]||0)+1;});
+  var tot={};QS.forEach(function(q){tot[TOPICS[q[1]]]=(tot[TOPICS[q[1]]]||0)+1;});
+  var topicDone=TOPICS.some(function(t){return per[t]===tot[t];});
+  var hours=A.map(function(a){return new Date(a.answeredAt).getHours();});
+  var moods=A.filter(function(a){return a.mood;}).length;
+  var rx=0,R=d.reactions[uid]||{};Object.keys(R).forEach(function(k){rx+=Object.keys(R[k]).length;});
+  return [
+   ['first','\u{1F331}','First page','Wrote your first answer',n>=1],
+   ['ten','\u{1F338}','Blooming','10 answers',n>=10],
+   ['fifty','\u{1F337}','Garden','50 answers',n>=50],
+   ['hundred','\u{1F490}','Bouquet','100 answers',n>=100],
+   ['q250','\u{1F3F5}️','Quarter way','250 answers',n>=250],
+   ['half','\u{1F451}','Halfway queen','500 answers',n>=500],
+   ['all','\u{1F3C6}','The whole book','1000 answers',n>=1000],
+   ['s3','\u{1F525}','On a roll','3-day streak',st.best>=3],
+   ['s7','\u{1F31F}','Week of me','7-day streak',st.best>=7],
+   ['owl','\u{1F989}','Night owl','Wrote between 12 and 4 AM',hours.some(function(h){return h<4;})],
+   ['bird','\u{1F425}','Early bird','Wrote between 5 and 7 AM',hours.some(function(h){return h>=5&&h<7;})],
+   ['deep','\u{1F30A}','Deep diver','10 Deep thoughts',(per['Deep thoughts']||0)>=10],
+   ['explorer','\u{1F9ED}','Explorer','Tried 10 topics',Object.keys(per).length>=10],
+   ['topic','\u{1F393}','Topic master','Finished a whole topic',topicDone],
+   ['capsule','⏳','Time traveler','Sealed a time capsule',A.some(function(a){return a.lockUntil;})],
+   ['again','\u{1F501}','Then & now','Answered a question again',A.some(function(a){return a.versions&&a.versions.length;})],
+   ['mood','\u{1F308}','Feelings check','Logged 7 moods',moods>=7],
+   ['loved','\u{1F49E}','So loved','Got 5 reactions',rx>=5],
+   ['share','\u{1F48C}','Shared a page','Made a share card',!!b.shared],
+   ['free','\u{1F343}','Free spirit','Wrote a free page',b.free.length>0]
+  ].map(function(s){return {id:s[0],e:s[1],t:s[2],s:s[3],ok:!!s[4]};});
+}
+function checkStickers(){
+  var b=myBook();if(!b)return;var seen=(db.seen[me()]=db.seen[me()]||{});seen.stickers=seen.stickers||[];
+  var fresh=stickersFor(b,me()).filter(function(s){return s.ok&&seen.stickers.indexOf(s.id)<0;});
+  if(!fresh.length)return;fresh.forEach(function(s){seen.stickers.push(s.id);});saveDb();
+  var s=fresh[0];showStickerWhenFree(function(){confetti();sheet('<div class="unlock" style="display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:6px 0 4px"><span class="kicker">New sticker unlocked</span><span class="e">'+s.e+'</span><h3>'+esc(s.t)+'</h3><p class="muted">'+esc(s.s)+(fresh.length>1?' · +'+(fresh.length-1)+' more':'')+'</p></div><div class="grid2"><button class="btn btn-ghost" data-act="go" data-to="stickers">See all</button><button class="btn btn-primary" data-act="closeSheet">Yay!</button></div>');});
+}
+function showStickerWhenFree(fn,tries){tries=tries||0;setTimeout(function(){if((layer.innerHTML||S.screen==='focus'||S.screen==='wrapped')&&tries<80)return showStickerWhenFree(fn,tries+1);fn();},tries?700:400);}
+
+/* ---------- fx ---------- */
+function confetti(){
+  try{var c=document.getElementById('fx'),x=c.getContext('2d'),W=c.width=innerWidth,H=c.height=innerHeight,cols=['#FF7EB0','#FFAE94','#C9A7FF','#FFD1E3','#FFE08A'],P=[];
+  for(var i=0;i<120;i++)P.push({x:W/2+(Math.random()-.5)*80,y:H*.45,vx:(Math.random()-.5)*12,vy:-Math.random()*13-4,r:Math.random()*6+4,c:cols[i%cols.length],a:Math.random()*6,va:(Math.random()-.5)*.3,h:Math.random()<.5});
+  var t0=performance.now();(function f(t){var k=(t-t0)/1600;x.clearRect(0,0,W,H);if(k>1)return;P.forEach(function(p){p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.a+=p.va;x.save();x.globalAlpha=1-k;x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;if(p.h){x.beginPath();x.arc(0,0,p.r/2,0,7);x.fill();}else x.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);x.restore();});requestAnimationFrame(f);})(t0);}catch(e){}
+}
+function burst(el,emoji){try{var r=el.getBoundingClientRect();for(var i=0;i<6;i++){var s=document.createElement('span');s.className='burst';s.textContent=emoji;s.style.left=(r.left+r.width/2-13)+'px';s.style.top=(r.top-6)+'px';s.style.setProperty('--dx',((Math.random()-.5)*120)+'px');s.style.animationDelay=(i*40)+'ms';document.body.appendChild(s);setTimeout(function(n){return function(){n.remove();};}(s),1300);}}catch(e){}}
+
+/* ---------- ui helpers ---------- */
+var toastT;function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show');},2400);}
+function sheet(html){layer.innerHTML='<div class="backdrop" data-act="closeSheet" data-self="1"><div class="sheet" role="dialog" aria-modal="true"><div class="grab"></div>'+html+'</div></div>';var f=layer.querySelector('input:not([type=date]),textarea');if(f)setTimeout(function(){try{f.focus();}catch(e){}},90);}
+function closeSheet(){layer.innerHTML='';}
+function confirmBox(t,m,ok,danger){return new Promise(function(res){sheet('<h3>'+esc(t)+'</h3><p class="muted">'+esc(m)+'</p><div class="grid2"><button class="btn btn-ghost" data-act="cfNo">Cancel</button><button class="btn '+(danger?'btn-danger':'btn-primary')+'" data-act="cfYes">'+esc(ok)+'</button></div>');S.cf=res;});}
+function statusHtml(){if(LIVE){if(!navigator.onLine)return I.cloudOff+' Saved on this phone · will sync';if(LV&&LV.pending())return I.cloud+' Syncing…';return I.check+' Saved & synced';}return dev.offline?I.cloudOff+' Saved on this phone · will sync':I.check+' Saved & synced';}
+function markPending(){if(dev.offline){dev.pending++;saveDev();}}
+function pwField(id,label,auto){return '<div class="field"><label for="'+id+'">'+label+'</label><div class="inp"><input id="'+id+'" type="password" autocomplete="'+(auto||'off')+'"><button type="button" class="icon-btn" data-act="peek" data-for="'+id+'" aria-label="Show password">'+I.eye+'</button></div></div>';}
+function txtField(id,label,val,ph,pre){return '<div class="field"><label for="'+id+'">'+label+'</label><div class="inp">'+(pre?'<span class="pre">'+pre+'</span>':'')+'<input id="'+id+'" type="text" value="'+esc(val||'')+'" placeholder="'+esc(ph||'')+'" autocomplete="off" autocapitalize="off"></div></div>';}
+function avatarHtml(p,cls){return '<span class="avatar '+(cls||'')+'" style="background:'+esc(p.color)+'">'+esc(p.avatar)+'</span>';}
+function shareLink(nick){return 'https://shohbeli.github.io/about_me/?u='+encodeURIComponent(nick);}
+function validNick(n){return /^[a-z0-9_.]{3,20}$/.test(n);}
+
+/* ---------- navigation ---------- */
+function go(screen,params,push){
+  flushSave();
+  if(push!==false&&S.screen&&S.screen!==screen)S.stack.push({s:S.screen,p:S.params});
+  S.fresh={};S.again=null;S.screen=screen;S.params=params||{};S.editing=false;render();window.scrollTo(0,0);
+}
+function tab(s){S.stack=[];go(s,{},false);}
+function back(){var p=S.stack.pop();if(p)go(p.s,p.p,false);else tab(isAuthor()?'home':'shelf');}
+function start(){
+  closeSheet();S.stack=[];
+  if(LIVE&&(!LV||LV.busy()))return go('loading',{},false);
+  if(!me())return go('welcome',{},false);
+  var b=myBook();
+  if(S.wantRead&&!S.wantReadDone){S.wantReadDone=true;return go('open',{nick:S.wantRead},false);}
+  if(!b||!b.ownerHash)return go('choose',{},false);
+  if(!S.unlocked)return go('lock',{},false);
+  go('home',{},false);
+}
+
+/* ---------- render ---------- */
+function tabbar(){
+  var t=isAuthor()?[['home','Home',I.home],['contents','Questions',I.list],['shelf','Shelf',I.shelf],['me','Me',I.me],['settings','Settings',I.gear]]:[['shelf','Shelf',I.shelf],['settings','Settings',I.gear]];
+  var map={freeEdit:'me',free:'me',stats:'me',stickers:'me',print:'settings',open:'shelf',rprofile:'shelf',rlist:'shelf'};var cur=map[S.screen]||S.screen;
+  return '<nav class="tabbar" aria-label="Main"><div class="in">'+t.map(function(x){return '<button class="tab'+(cur===x[0]?' on':'')+'" data-act="tab" data-to="'+x[0]+'"'+(cur===x[0]?' aria-current="page"':'')+'>'+x[2]+'<span>'+x[1]+'</span></button>';}).join('')+'</div></nav>';
+}
+var VIEWS;
+function render(){
+  var v=VIEWS[S.screen];var html=v();
+  var TS=['home','contents','shelf','me','settings','open','rprofile','rlist'],tabs=TS.indexOf(S.screen)>=0&&(!isAuthor()||S.unlocked);
+  app.className=tabs?'has-tabs':(S.screen==='page'||S.screen==='rbook')?'has-pager':'';
+  app.innerHTML=html+(tabs?tabbar():'');
+  var ta=document.getElementById('ta');if(ta)grow(ta);
+  if(S.screen==='rbook')bindSwipe('bookpage',turn);
+  if(S.screen==='wrapped')startWrapTimer();else stopWrapTimer();
+}
+function grow(el){var lh=parseFloat(getComputedStyle(el).lineHeight)||36;el.style.height='auto';var lines=Math.ceil((el.scrollHeight-1)/lh);el.style.height=Math.max(lh*(el.dataset.min?+el.dataset.min:7),(lines+1)*lh)+'px';}
+
+/* ---------- screens: auth ---------- */
+function vLoading(){return '<main class="center" style="align-items:center;text-align:center"><div class="logo">\u{1F4D6}</div><p class="muted">Opening…</p></main>';}
+function vWelcome(){
+  return '<main class="center"><div class="logo" aria-hidden="true">\u{1F4D6}</div>'+
+  '<div><p class="kicker">1000 things to write about</p><h1 class="display" style="font-size:52px;font-weight:600;line-height:1">About Me</h1></div>'+
+  '<p class="muted" style="font-size:17px;font-weight:600">Your own book of 1000 questions about your life, the deep ones, the funny ones, and everything in between. Share it with a username and password, only if you want to.</p>'+
+  '<button class="gbtn" data-act="google">'+I.g+' Continue with Google</button>'+
+  (LIVE?'':'<p class="notice">Working mockup: Google sign-in is pretend, and everything stays in this browser. Try reading <b>@mika</b> with the password <b>mika123</b>.</p>')+'</main>';
+}
+function vChoose(){
+  var a=db.accounts[me()]||{name:'You'};
+  return '<main class="center"><div class="logo">\u{1F44B}</div><h1 class="h1">Hi, '+esc(a.name.split(' ')[0])+'!</h1><p class="muted" style="font-weight:600">What do you want to do?</p>'+
+  '<button class="card" data-act="go" data-to="setup"><span class="qline">✍️ Write my own book</span><span class="muted small" style="font-weight:600">Pick a username and answer 1000 questions about your life.</span></button>'+
+  '<button class="card" data-act="go" data-to="open"><span class="qline">\u{1F4D6} Read someone’s book</span><span class="muted small" style="font-weight:600">You’ll need their username and reader password.</span></button>'+
+  '<button class="back-btn" style="justify-content:center" data-act="signout">Sign out</button></main>';
+}
+function vSetup(){
+  return '<div class="topbar"><button class="back-btn" data-act="'+(isAuthor()?'back':'tab')+'" data-to="'+(LIVE||!db.authors[me()]?'choose':'shelf')+'">'+I.back+' Back</button><span class="mid">Set up your book</span><span style="width:44px"></span></div>'+
+  '<main class="screen"><div><h1 class="h1">Make it yours ✨</h1><p class="muted" style="font-weight:600;margin-top:4px">Your username is how friends find your book.</p></div>'+
+  '<form data-form="setup" style="display:flex;flex-direction:column;gap:14px" novalidate>'+
+  '<div class="card">'+txtField('nk','Username','','e.g. laurice','@')+'<p class="muted small" style="font-weight:600">3–20 characters: lowercase letters, numbers, _ or .</p></div>'+
+  '<div class="card"><p class="card-title">'+I.lock+' Your password (opens your book)</p>'+pwField('p1','Password')+pwField('p2','Type it again')+'</div>'+
+  '<div class="card"><div class="row" style="flex-wrap:nowrap"><p class="card-title" style="flex:1">\u{1F4D6} Reader password</p><button type="button" class="switch" role="switch" aria-checked="true" aria-label="Let others read" data-act="setupReader" id="rsw"></button></div>'+
+  '<div id="rf" style="display:flex;flex-direction:column;gap:10px">'+pwField('r1','Reader password')+pwField('r2','Type it again')+'</div><p class="muted small" style="font-weight:600">Readers sign in with Google, then type your username + this password. Read-only, and hidden answers stay hidden.</p></div>'+
+  '<p class="err" id="err"></p><button class="btn btn-primary" type="submit">Create my book</button></form></main>';
+}
+function vLock(){
+  var b=myBook();
+  return '<main class="center" style="align-items:stretch"><div style="display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center">'+avatarHtml(b.profile,'xl')+
+  '<h2 class="h1">Welcome back, @'+esc(b.nick)+'</h2><p class="muted" style="font-weight:600">Enter your password to open your book.</p></div>'+
+  '<form data-form="lock" style="display:flex;flex-direction:column;gap:12px" novalidate>'+pwField('lp','Password','current-password')+'<p class="err" id="err"></p><button class="btn btn-primary" type="submit">Unlock</button></form>'+
+  '<button class="back-btn" style="justify-content:center" data-act="signout">Not you? Sign out</button></main>';
+}
+
+/* ---------- screens: author ---------- */
+function vHome(){
+  var b=myBook(),n=count(b),st=streak(b),q=qotd(b),otd=onThisDay(b),last=lastWritten(b),next=nextUnanswered(b),rx=newRx(me());
+  var hr=new Date().getHours(),hi=hr<5?'Still up':hr<12?'Good morning':hr<18?'Good afternoon':'Good evening';
+  var h='<main class="screen">';
+  if(b.samples)h+='<p class="notice">These are sample answers so you can try every feature. Clear them anytime in Settings.</p>';
+  h+='<section class="hero"><div class="row" style="position:relative;z-index:1;flex-wrap:nowrap">'+avatarHtml(b.profile)+'<div><p class="hi">'+hi+',<br>@'+esc(b.nick)+'</p></div></div>'+
+     '<div style="position:relative;z-index:1;margin-top:16px;display:flex;align-items:end;gap:8px"><span class="big">'+n+'</span><span style="font-weight:800;padding-bottom:4px">of '+TOTAL+' pages written</span></div>'+
+     '<div class="bar" style="position:relative;z-index:1;margin-top:10px;background:rgba(255,255,255,.45)"><span style="width:'+Math.max(n?1.5:0,n/TOTAL*100)+'%;background:#fff"></span></div>'+
+     (st.cur>0?'<p class="sub">\u{1F525} '+st.cur+'-day streak, keep it going!</p>':'<p class="sub">Write one today and start a streak ✨</p>')+'</section>';
+  if(next)h+='<button class="btn btn-primary btn-wide" data-act="open" data-n="'+next+'"><span>Continue writing</span><span class="display" style="font-size:18px">#'+next+' →</span></button>';
+  h+='<button class="card dice-card" data-act="roll" id="dicecard"><span class="dice" id="dice">'+diceFace(5)+'</span><span style="display:flex;flex-direction:column;gap:2px"><span class="qline">Roll the dice</span><span class="muted small" style="font-weight:600">Let fate pick your next question \u{1F3B2}</span></span></button>';
+  if(rx.length){h+='<button class="card" data-act="seeRx"><span class="card-title">\u{1F48C} '+rx.length+' new reaction'+(rx.length>1?'s':'')+'</span><span style="font-weight:700">'+rx.slice(0,3).map(function(r){return esc(whoName(r.who))+' '+r.e;}).join(' · ')+'</span></button>';}
+  if(q)h+='<button class="card" data-act="open" data-n="'+q+'"><span class="card-title">'+I.sparkle+' Question of the day · #'+q+'</span><span class="qline">'+esc(QS[q-1][0])+'</span><span class="row" style="justify-content:space-between"><span class="chip">'+esc(TOPICS[QS[q-1][1]])+'</span><span class="new">Write '+I.chev+'</span></span></button>';
+  if(otd.length){var o=otd[0];h+='<button class="card" data-act="open" data-n="'+o.n+'"><span class="card-title">'+I.cal+' On this day · '+agoLabel(o.m)+'</span><span class="qline">'+esc(QS[o.n-1][0])+'</span><span class="snip">'+esc(b.answers[o.n].text)+'</span></button>';}
+  h+='<div class="grid2"><button class="btn btn-ghost" data-act="randomMemory">\u{1F4AD} Random memory</button><button class="btn btn-ghost" data-act="go" data-to="wrapped">✨ Year wrapped</button></div>';
+  h+='<p class="sec">Write by topic</p><div class="chips">'+TOPICS.map(function(t){return '<button class="fchip" data-act="topic" data-f="'+esc(t)+'">'+esc(t)+'</button>';}).join('')+'</div>';
+  if(last)h+='<button class="card" data-act="open" data-n="'+last.n+'"><span class="card-title">Last thing you wrote · #'+last.n+'</span><span class="qline">'+esc(QS[last.n-1][0])+'</span><span class="snip">'+esc(b.answers[last.n].text)+'</span></button>';
+  return h+'</main>';
+}
+function diceFace(v){var P={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]}[v],h='';for(var i=0;i<9;i++)h+='<i class="'+(P.indexOf(i)>=0?'on':'')+'"></i>';return h;}
+function vContents(){
+  var fl=['All','Not yet','Answered','Favorites','Skipped','Hidden','Time capsules'].concat(TOPICS);if(fl.indexOf(S.filter)<0)S.filter='All';
+  return '<main class="screen"><div><h1 class="h1">All questions</h1><p class="muted small" style="font-weight:700" id="cnt"></p></div>'+
+  '<label class="search">'+I.search+'<input id="q" type="search" data-input="search" aria-label="Search" placeholder="Search questions & answers, or #number" value="'+esc(S.query)+'"></label>'+
+  '<div class="chips">'+fl.map(function(f){return '<button class="fchip'+(S.filter===f?' on':'')+'" data-act="filter" data-f="'+esc(f)+'">'+esc(f)+'</button>';}).join('')+'</div>'+
+  '<div class="rows" id="rows">'+rowsHtml()+'</div></main>';
+}
+function rowsHtml(){
+  var b=myBook(),q=S.query.trim().toLowerCase(),f=S.filter,out=[],shown=0,num=q.replace(/^#/,'');
+  if(/^\d+$/.test(num)&&+num>=1&&+num<=TOTAL)out.push('<button class="lrow" data-act="open" data-n="'+(+num)+'"><span class="n">'+I.next+'</span><span class="m"><span class="q">Go to page #'+(+num)+'</span></span></button>');
+  for(var n=1;n<=TOTAL;n++){
+    var Q=QS[n-1],a=b.answers[n],t=TOPICS[Q[1]],lk=locked(a);
+    if(f==='Not yet'&&a)continue;if(f==='Answered'&&!a)continue;if(f==='Favorites'&&!(a&&a.fav))continue;if(f==='Skipped'&&!b.skipped[n])continue;if(f==='Hidden'&&!(a&&a.hidden))continue;if(f==='Time capsules'&&!(a&&a.lockUntil))continue;
+    if(TOPICS.indexOf(f)>=0&&t!==f)continue;
+    var inQ=!q||Q[0].toLowerCase().indexOf(q)>=0,inA=q&&a&&!lk&&a.text.toLowerCase().indexOf(q)>=0;if(q&&!inQ&&!inA)continue;
+    shown++;if(shown>400&&!q&&f==='All')continue;
+    var m=a&&a.mood?moodOf(a.mood):null;
+    out.push('<button class="lrow" data-act="open" data-n="'+n+'"><span class="n">#'+n+'</span><span class="m"><span class="q">'+esc(Q[0])+'</span>'+(inA?'<span class="snip">'+esc(a.text)+'</span>':'')+
+    '<span class="meta"><span class="chip">'+esc(t)+'</span>'+(a&&!lk?I.check:'')+(lk?'<span class="chip">⏳ sealed</span>':'')+(m?'<span>'+m[1]+'</span>':'')+(a&&a.fav?I.heartF:'')+(a&&a.hidden?I.eyeOff:'')+(b.skipped[n]?I.skip:'')+'</span></span></button>');
+  }
+  if(shown>400&&!q&&f==='All')out.push('<p class="empty">Showing the first 400. Search or pick a topic to see more.</p>');
+  setTimeout(function(){var c=document.getElementById('cnt');if(c)c.textContent=shown+' shown · '+count(b)+' of '+TOTAL+' written';},0);
+  return out.join('')||'<p class="empty">Nothing here yet.</p>';
+}
+function toolsHtml(n){
+  var a=myBook().answers[n],d=a?'':' disabled';
+  return '<button class="tool" data-act="focus">'+I.focus+' Focus</button>'+
+  '<button class="tool'+(a&&a.fav?' on':'')+'" data-act="fav" aria-pressed="'+!!(a&&a.fav)+'"'+d+'>'+(a&&a.fav?I.heartF:I.heart)+' Favorite</button>'+
+  '<button class="tool'+(a&&a.mood?' on':'')+'" data-act="mood"'+d+'>'+(a&&a.mood?moodOf(a.mood)[1]:I.smile)+' Mood</button>'+
+  '<button class="tool'+(a&&a.hidden?' on':'')+'" data-act="hide" aria-pressed="'+!!(a&&a.hidden)+'"'+d+'>'+I.eyeOff+' Hide</button>'+
+  '<button class="tool" data-act="capsule"'+d+'>'+I.clock+' Time capsule</button>'+
+  '<button class="tool" data-act="again"'+d+'>'+I.again+' Answer again</button>'+
+  '<button class="tool'+(a&&a.song?' on':'')+'" data-act="song"'+d+'>'+I.music+' Song</button>'+
+  '<button class="tool" data-act="shareCard"'+d+'>'+I.share+' Share card</button>'+
+  '<button class="tool'+(a&&myBook().profile.pinned===n?' on':'')+'" data-act="pin"'+d+'>'+I.pin+' Pin</button>';
+}
+function datesHtml(a){if(!a)return '';return 'Answered '+fmtDT(a.answeredAt)+(a.editedAt?'<br>Edited '+fmtDT(a.editedAt):'');}
+function footBtns(n){var a=myBook().answers[n],ed=S.editing||!a||S.again===n,h='<span class="status" id="status">'+(a?statusHtml():'')+'</span>';
+  if(ed&&a)h+='<button class="btn-sm primary" data-act="done">'+I.check+' Done</button>';
+  if(!ed&&a)h+='<button class="btn-sm" data-act="edit">'+I.edit+' Edit</button><button class="btn-sm danger" data-act="del">'+I.trash+' Delete</button>';
+  if(!a)h+=myBook().skipped[n]?'<button class="btn-sm" data-act="unskip">Unskip</button>':'<button class="btn-sm" data-act="skip">'+I.skip+' Skip for now</button>';return h;}
+function songHtml(s){var host='';try{host=new URL(s.url).hostname.replace(/^www\./,'');}catch(e){}return '<a class="song" href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer">'+I.music+'<span style="flex:1;min-width:0"><b>'+esc(s.title||'Song for this page')+'</b><span>'+esc(host)+'</span></span>'+I.chev+'</a>';}
+function rxRow(uid,key,mine){var c=rxSummary(uid,key),keys=Object.keys(c);if(!mine&&!keys.length)return '';
+  if(mine)return '<div class="reacts">'+REACTS.map(function(e){var on=(rxFor(uid,key)[me()]||{}).e===e;return '<button class="rx'+(on?' on':'')+'" data-act="react" data-e="'+e+'" aria-pressed="'+on+'">'+e+(c[e]?' '+c[e]:'')+'</button>';}).join('')+'</div>';
+  return '<div class="reacts">'+keys.map(function(e){return '<span class="rx" title="Reactions">'+e+' '+c[e]+'</span>';}).join('')+'</div>';}
+function vPage(){
+  var b=myBook(),n=S.params.n,Q=QS[n-1],a=b.answers[n],ag=S.again===n,ed=S.editing||!a||ag,lk=locked(a);
+  var h='<div class="topbar"><button class="back-btn" data-act="back">'+I.back+' Back</button><span class="mid">Page '+n+' of '+TOTAL+'</span><button class="icon-btn" data-act="randomQ" aria-label="Random page">'+I.shuffle+'</button></div>'+
+  '<article class="paper"><div class="qhead"><div class="row"><span class="pnum">#'+n+'</span><span class="chip">'+esc(TOPICS[Q[1]])+'</span>'+(a&&a.mood&&!lk?'<span style="margin-left:auto;font-size:22px" title="'+moodOf(a.mood)[2]+'">'+moodOf(a.mood)[1]+'</span>':'')+'</div><h2 class="qtext">'+esc(Q[0])+'</h2>'+(lk?'':'<div class="tools" id="tools">'+toolsHtml(n)+'</div>')+'</div>';
+  if(lk){var days=Math.ceil((a.lockUntil-Date.now())/DAY);
+    return h+'<div class="sealed"><span class="env">\u{1F48C}</span><h3 class="display" style="font-size:22px;font-weight:600">Sealed time capsule</h3><p class="muted" style="font-weight:700">Opens on '+fmtD(a.lockUntil)+' · in '+days+' day'+(days>1?'s':'')+'</p><p class="muted small" style="font-weight:600">Not even you can peek until then. Readers can’t see it either.</p><button class="btn-sm" data-act="openEarly">Open early</button></div><div style="height:12px"></div></article>'+pagerHtml(n);}
+  if(a&&a.versions&&a.versions.length&&!ed){var tv=S.params.then?a.versions[a.versions.length-1]:null;
+    h+='<div class="seg-tabs" role="tablist"><button role="tab" class="'+(tv?'':'on')+'" data-act="thenNow" data-v="0">Now</button><button role="tab" class="'+(tv?'on':'')+'" data-act="thenNow" data-v="1">Then · '+new Date(a.versions[a.versions.length-1].at).toLocaleDateString('en-US',{month:'short',year:'numeric'})+'</button></div>';
+    if(tv)return h+'<div class="ans"><div class="ruled" style="opacity:.8">'+esc(tv.text)+'</div><p class="hint">How you answered back then'+(tv.mood?' · felt '+moodOf(tv.mood)[1]:'')+'</p></div><div class="foot"><p class="dates">Written '+fmtDT(tv.at)+'</p></div></article>'+pagerHtml(n);}
+  h+='<div class="ans">'+(ed?'<textarea id="ta" class="ruled" data-input="answer" placeholder="'+(ag?'Answer it again, today’s version…':'Write here…')+'" aria-label="Your answer">'+(ag?'':esc(a?a.text:''))+'</textarea>':'<button class="ruled ans-view" data-act="edit" aria-label="Your answer. Tap to edit">'+esc(a.text)+'</button><p class="hint">Tap your answer to edit it</p>')+'</div>';
+  h+='<div id="songbox">'+(a&&a.song?songHtml(a.song):'')+'</div>'+(a?rxRow(me(),'q'+n,false):'');
+  h+='<footer class="foot"><p class="dates" id="dates">'+datesHtml(a)+'</p><div class="row" id="foot">'+footBtns(n)+'</div>'+(!a&&b.skipped[n]?'<p class="muted small" style="font-weight:600">Skipped. It’ll wait for you in the Skipped list.</p>':'')+'</footer></article>';
+  return h+pagerHtml(n);
+}
+function pagerHtml(n){return '<div class="pager"><div class="in"><button class="btn btn-ghost" data-act="prevQ"'+(n<=1?' disabled':'')+'>'+I.back+' Prev</button><span class="count"></span><button class="btn btn-primary" data-act="nextQ"'+(n>=TOTAL?' disabled':'')+'>Next '+I.next+'</button></div></div>';}
+function vFocus(){
+  var b=myBook(),n=S.params.n,a=b.answers[n],ag=S.again===n;
+  return '<div class="focus"><div class="fx-bg"><i></i><i></i></div><div class="inner"><div class="row" style="justify-content:space-between"><span class="row" style="gap:10px"><span class="breath"></span><span class="muted small" style="font-weight:800">Focus mode · #'+n+'</span></span><button class="btn-sm primary" data-act="exitFocus">'+I.check+' Done</button></div>'+
+  '<p class="q">'+esc(QS[n-1][0])+'</p><textarea id="ta" class="ruled" data-input="answer" data-min="9" placeholder="Take your time. Just you and this question…" aria-label="Your answer" style="flex:1">'+(ag?'':esc(a?a.text:''))+'</textarea><p class="status" id="status" style="margin:0">'+(a?statusHtml():'')+'</p></div></div>';
+}
+function vShelf(){
+  var shelf=(db.shelves[me()]||[]).filter(function(nk){return shelfProfile(nk);});
+  var h='<main class="screen"><div><h1 class="h1">Shelf</h1><p class="muted small" style="font-weight:700">Books you can read</p></div>'+
+  '<button class="btn btn-primary" data-act="go" data-to="open">'+I.plus+' Open a book</button>';
+  if(!shelf.length)h+='<div class="card" style="align-items:center;text-align:center"><span style="font-size:40px">\u{1F4DA}</span><p class="qline">Your shelf is empty</p><p class="muted small" style="font-weight:600">Open a friend’s book with their username and reader password, then save it here.</p></div>';
+  else h+=shelf.map(function(nk){var pf=shelfProfile(nk);return '<button class="card" data-act="openNick" data-nick="'+esc(nk)+'" style="flex-direction:row;align-items:center;gap:14px">'+avatarHtml(pf,'lg')+'<span style="display:flex;flex-direction:column;gap:3px;min-width:0"><span class="qline">@'+esc(nk)+'</span><span class="muted small" style="font-weight:600">'+esc(pf.bio||'No bio yet')+'</span><span class="new">'+I.lock+' Needs password</span></span></button>';}).join('');
+  if(!isAuthor())h+='<button class="card" data-act="go" data-to="setup"><span class="qline">✍️ Start my own book</span><span class="muted small" style="font-weight:600">Pick a username and answer 1000 questions about your life.</span></button>';
+  return h+'</main>';
+}
+function shelfProfile(nk){if(db.shelfInfo&&db.shelfInfo[nk])return db.shelfInfo[nk];var u=db.usernames[nk],b=u&&db.authors[u];return b?b.profile:null;}
+function vOpen(){
+  return '<div class="topbar"><button class="back-btn" data-act="back">'+I.back+' Back</button><span class="mid">Open a book</span><span style="width:44px"></span></div>'+
+  '<main class="screen"><div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px"><span class="logo" style="font-size:54px">\u{1F510}</span><h1 class="h1">Read someone’s book</h1><p class="muted" style="font-weight:600">Ask them for their username and reader password.</p></div>'+
+  '<form data-form="open" style="display:flex;flex-direction:column;gap:12px" novalidate>'+txtField('on','Username',S.params.nick||'','username','@')+pwField('op','Reader password')+'<p class="err" id="err"></p><button class="btn btn-primary" type="submit">Open book</button></form></main>';
+}
+function vRProfile(){
+  var b=rBook();if(!b){setTimeout(function(){tab('shelf');});return '';}
+  var items=readerItems(b),pin=b.profile.pinned&&b.answers[b.profile.pinned]&&!b.answers[b.profile.pinned].hidden&&!locked(b.answers[b.profile.pinned])?b.profile.pinned:null;
+  var nw=items.filter(function(it){return Math.max(it.a.answeredAt,it.a.editedAt||0)>S.prevVisit;}).length,saved=(db.shelves[me()]||[]).indexOf(b.nick)>=0;
+  var h='<div class="topbar"><button class="back-btn" data-act="tab" data-to="shelf">'+I.back+' Shelf</button><span class="mid">Read-only</span><span style="width:44px"></span></div><main class="screen">'+
+  '<div class="prof">'+avatarHtml(b.profile,'xl')+'<p class="nick">@'+esc(b.nick)+'</p><p class="bio">'+esc(b.profile.bio||'')+'</p><div class="row" style="justify-content:center"><span class="pill">'+items.length+' pages to read</span>'+(nw?'<span class="pill"><span class="dot"></span> '+nw+' new</span>':'')+'</div></div>';
+  if(pin)h+='<button class="card" data-act="readKey" data-key="q'+pin+'"><span class="card-title">'+I.pin+' Pinned by @'+esc(b.nick)+'</span><span class="qline">'+esc(QS[pin-1][0])+'</span><span class="snip">'+esc(b.answers[pin].text)+'</span></button>';
+  if(items.length)h+='<button class="btn btn-primary btn-wide" data-act="readAt" data-i="'+Math.max(0,items.findIndex(function(it){return it.key===(dev.pos[b.nick]||'');}))+'"><span>'+(dev.pos[b.nick]?'Continue reading':'Start reading')+'</span>\u{1F4D6}</button>'+
+     '<div class="grid2"><button class="btn btn-ghost" data-act="readRandom">\u{1F3B2} Random page</button><button class="btn btn-ghost" data-act="go" data-to="rlist">'+I.list+' All pages</button></div>';
+  else h+='<p class="empty">Nothing to read yet.</p>';
+  h+='<button class="btn btn-ghost" data-act="toggleShelf">'+(saved?'✅ Saved on your shelf':'\u{1F4DA} Save to my shelf')+'</button>';
+  return h+'</main>';
+}
+function vRList(){
+  var b=rBook();if(!b){setTimeout(function(){tab('shelf');});return '';}
+  var items=readerItems(b),fl=['All','New'].concat(TOPICS,['Free page']);
+  return '<div class="topbar"><button class="back-btn" data-act="go" data-to="rprofile">'+I.back+' @'+esc(b.nick)+'</button><span class="mid">All pages</span><span style="width:44px"></span></div><main class="screen" style="padding-top:6px">'+
+  '<div class="chips">'+fl.filter(function(f){return f==='All'||f==='New'||items.some(function(it){return it.f===f;});}).map(function(f){return '<button class="fchip'+(S.rlFilter===f?' on':'')+'" data-act="rlFilter" data-f="'+esc(f)+'">'+esc(f)+'</button>';}).join('')+'</div><div class="rows">'+
+  items.map(function(it,i){if(S.rlFilter==='New'&&!(Math.max(it.a.answeredAt,it.a.editedAt||0)>S.prevVisit))return '';if(S.rlFilter!=='All'&&S.rlFilter!=='New'&&it.f!==S.rlFilter)return '';
+    return '<button class="lrow" data-act="readAt" data-i="'+i+'"><span class="n">'+(it.free?'\u{1F343}':'#'+it.n)+'</span><span class="m"><span class="q">'+esc(it.q)+'</span><span class="snip">'+esc(it.a.text)+'</span><span class="meta"><span class="chip">'+esc(it.f)+'</span>'+(Math.max(it.a.answeredAt,it.a.editedAt||0)>S.prevVisit?'<span class="new"><span class="dot"></span>New</span>':'')+'</span></span></button>';}).join('')+'</div></main>';
+}
+function vRBook(){
+  var b=rBook();if(!b){setTimeout(function(){tab('shelf');});return '';}var items=readerItems(b);if(!items.length){setTimeout(function(){go('rprofile',{},false);});return '';}
+  if(S.bookIdx>=items.length)S.bookIdx=items.length-1;if(S.bookIdx<0)S.bookIdx=0;var it=items[S.bookIdx],a=it.a;dev.pos[b.nick]=it.key;saveDev();
+  var m=a.mood?moodOf(a.mood):null,nw=Math.max(a.answeredAt,a.editedAt||0)>S.prevVisit;
+  return '<div class="topbar"><button class="back-btn" data-act="go" data-to="rprofile">'+I.back+' @'+esc(b.nick)+'</button><span class="mid">'+(S.bookIdx+1)+' of '+items.length+'</span><button class="icon-btn" data-act="readRandom" aria-label="Random page">'+I.shuffle+'</button></div>'+
+  '<article class="paper" id="bookpage" style="'+(S.bookDir?'animation:'+(S.bookDir==='next'?'sn':'sp')+' .35s cubic-bezier(.2,.8,.2,1)':'')+'"><div class="qhead"><div class="row">'+(it.free?'':'<span class="pnum">#'+it.n+'</span>')+'<span class="chip">'+esc(it.f)+'</span>'+(m?'<span style="font-size:22px">'+m[1]+'</span>':'')+(nw?'<span class="new" style="margin-left:auto"><span class="dot"></span>New</span>':'')+'</div><h2 class="qtext">'+esc(it.q)+'</h2></div>'+
+  '<div class="ans"><div class="ruled">'+esc(a.text)+'</div></div>'+(a.song?songHtml(a.song):'')+rxRow(S.readUid,it.key,true)+
+  '<footer class="foot"><p class="dates">Written '+fmtD(a.answeredAt)+(a.editedAt?' · Edited '+fmtD(a.editedAt):'')+'</p><p class="muted small" style="font-weight:600">Swipe to turn the page · tap an emoji to react</p></footer></article>'+
+  '<style>@keyframes sn{from{transform:translateX(50px) rotate(1deg);opacity:0}}@keyframes sp{from{transform:translateX(-50px) rotate(-1deg);opacity:0}}</style>'+
+  '<div class="pager"><div class="in"><button class="btn btn-ghost" data-act="bookPrev"'+(S.bookIdx<=0?' disabled':'')+'>'+I.back+' Prev</button><span class="count">'+(S.bookIdx+1)+' / '+items.length+'</span><button class="btn btn-primary" data-act="bookNext"'+(S.bookIdx>=items.length-1?' disabled':'')+'>Next '+I.next+'</button></div></div>';
+}
+function bindSwipe(id,fn){var el=document.getElementById(id);if(!el)return;var x0=null,y0=null;el.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY;},{passive:true});el.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5)fn(dx<0?1:-1);},{passive:true});}
+function turn(d){var items=readerItems(rBook()),i=S.bookIdx+d;if(i<0||i>=items.length)return;S.bookIdx=i;S.bookDir=d>0?'next':'prev';render();window.scrollTo(0,0);}
+function vMe(){
+  var b=myBook(),st=stickersFor(b,me()),got=st.filter(function(s){return s.ok;}).length,caps=Object.keys(b.answers).filter(function(k){return locked(b.answers[k]);}).length;
+  return '<main class="screen"><div class="prof">'+avatarHtml(b.profile,'xl')+'<p class="nick">@'+esc(b.nick)+'</p><p class="bio">'+esc(b.profile.bio||'Add a short bio in Edit profile')+'</p><button class="btn-sm" data-act="editProfile">'+I.edit+' Edit profile</button></div>'+
+  '<div class="grid3"><div class="stat" style="align-items:center"><span class="v">'+count(b)+'</span><span class="l">answers</span></div><div class="stat" style="align-items:center"><span class="v">'+got+'</span><span class="l">stickers</span></div><div class="stat" style="align-items:center"><span class="v">'+streak(b).cur+'</span><span class="l">day streak</span></div></div>'+
+  '<div class="group">'+
+  '<button class="item" data-act="go" data-to="stats"><span class="ic">'+I.cal+'</span><span class="grow"><span>Mood calendar & stats</span><span class="sub">How you’ve been feeling</span></span>'+I.chev+'</button>'+
+  '<button class="item" data-act="go" data-to="stickers"><span class="ic">'+I.sticker+'</span><span class="grow"><span>Stickers</span><span class="sub">'+got+' of '+st.length+' collected</span></span>'+I.chev+'</button>'+
+  '<button class="item" data-act="go" data-to="wrapped"><span class="ic">'+I.gift+'</span><span class="grow"><span>Year wrapped</span><span class="sub">Your '+new Date().getFullYear()+' in a story</span></span>'+I.chev+'</button>'+
+  '<button class="item" data-act="capsules"><span class="ic">'+I.clock+'</span><span class="grow"><span>Time capsules</span><span class="sub">'+caps+' sealed</span></span>'+I.chev+'</button>'+
+  '<button class="item" data-act="go" data-to="free"><span class="ic">'+I.pages+'</span><span class="grow"><span>Free pages</span><span class="sub">'+b.free.length+' page'+(b.free.length===1?'':'s')+'</span></span>'+I.chev+'</button>'+
+  '<button class="item" data-act="shareProfile"><span class="ic">'+I.link+'</span><span class="grow"><span>Share my book</span><span class="sub">Your personal link</span></span>'+I.chev+'</button></div></main>';
+}
+function vStats(){
+  var b=myBook();if(!S.calMonth){var t=new Date();S.calMonth=[t.getFullYear(),t.getMonth()];}
+  var y=S.calMonth[0],mo=S.calMonth[1],first=new Date(y,mo,1),days=new Date(y,mo+1,0).getDate(),byDay={};
+  Object.keys(b.answers).forEach(function(k){var a=b.answers[k];if(!a.mood)return;var d=new Date(a.answeredAt);if(d.getFullYear()===y&&d.getMonth()===mo){if(!byDay[d.getDate()]||a.answeredAt>byDay[d.getDate()].t)byDay[d.getDate()]={t:a.answeredAt,m:a.mood};}});
+  var cal='<div class="cal">'+['S','M','T','W','T','F','S'].map(function(d){return '<span class="dh">'+d+'</span>';}).join('');
+  for(var i=0;i<first.getDay();i++)cal+='<span></span>';
+  var today=new Date();for(var d=1;d<=days;d++){var x=byDay[d],m=x?moodOf(x.m):null,isT=today.getFullYear()===y&&today.getMonth()===mo&&today.getDate()===d;
+    cal+='<span class="d'+(m?' has':'')+(isT?' today':'')+'" style="'+(m?'background:'+m[3]+'55':'')+'" title="'+(m?m[2]:'')+'">'+(m?'<em>'+m[1]+'</em>':d)+'</span>';}
+  cal+='</div>';
+  var cnt={};Object.keys(b.answers).forEach(function(k){var a=b.answers[k];if(a.mood)cnt[a.mood]=(cnt[a.mood]||0)+1;});
+  var w=0,longest=null,per={};Object.keys(b.answers).forEach(function(k){var a=b.answers[k],c=words(a.text);w+=c;if(!locked(a)&&(!longest||c>longest.c))longest={n:+k,c:c};var t=TOPICS[QS[k-1][1]];per[t]=(per[t]||0)+1;});
+  var tot={};QS.forEach(function(q){tot[TOPICS[q[1]]]=(tot[TOPICS[q[1]]]||0)+1;});var st=streak(b);
+  var top=Object.keys(per).sort(function(a,c){return per[c]-per[a];})[0];
+  return '<div class="topbar"><button class="back-btn" data-act="back">'+I.back+' Me</button><span class="mid">Mood & stats</span><span style="width:44px"></span></div><main class="screen" style="padding-top:6px">'+
+  '<section class="card"><div class="row" style="justify-content:space-between"><button class="icon-btn soft" data-act="calNav" data-d="-1" aria-label="Previous month">'+I.back+'</button><span class="qline">'+first.toLocaleDateString('en-US',{month:'long',year:'numeric'})+'</span><button class="icon-btn soft" data-act="calNav" data-d="1" aria-label="Next month">'+I.next+'</button></div>'+cal+
+  '<div class="row" style="justify-content:center;gap:12px">'+MOODS.map(function(m){return '<span class="small" style="font-weight:700">'+m[1]+' '+(cnt[m[0]]||0)+'</span>';}).join('')+'</div></section>'+
+  '<div class="stat-grid"><div class="stat"><span class="v">'+count(b)+'</span><span class="l">answers of '+TOTAL+'</span></div><div class="stat"><span class="v">'+w.toLocaleString()+'</span><span class="l">words written</span></div>'+
+  '<div class="stat"><span class="v">'+st.cur+'</span><span class="l">day streak · best '+st.best+'</span></div><div class="stat"><span class="v" style="font-size:20px">'+esc(top||'—')+'</span><span class="l">top topic</span></div></div>'+
+  (longest?'<button class="card" data-act="open" data-n="'+longest.n+'"><span class="card-title">Your longest answer · '+longest.c+' words</span><span class="qline">'+esc(QS[longest.n-1][0])+'</span></button>':'')+
+  '<section class="card"><p class="card-title">By topic</p>'+TOPICS.map(function(t){return '<div class="fbar"><span>'+esc(t)+'</span><span class="t"><span style="width:'+((per[t]||0)/tot[t]*100)+'%"></span></span><span class="muted small" style="text-align:right">'+(per[t]||0)+'/'+tot[t]+'</span></div>';}).join('')+'</section></main>';
+}
+function vStickers(){
+  var st=stickersFor(myBook(),me()),got=st.filter(function(s){return s.ok;}).length;
+  return '<div class="topbar"><button class="back-btn" data-act="back">'+I.back+' Back</button><span class="mid">Stickers</span><span style="width:44px"></span></div><main class="screen" style="padding-top:6px"><div><h1 class="h1">Sticker book</h1><p class="muted small" style="font-weight:700">'+got+' of '+st.length+' collected</p></div><div class="bar"><span style="width:'+(got/st.length*100)+'%"></span></div>'+
+  '<div class="grid3">'+st.map(function(s){return '<div class="stk'+(s.ok?'':' lock')+'"><span class="e">'+s.e+'</span><span class="t">'+esc(s.t)+'</span><span class="s">'+esc(s.s)+'</span></div>';}).join('')+'</div></main>';
+}
+function wrapSlides(){
+  var b=myBook(),y=new Date().getFullYear(),A=[];Object.keys(b.answers).forEach(function(k){var a=b.answers[k];if(new Date(a.answeredAt).getFullYear()===y)A.push({n:+k,a:a});});
+  var w=0,per={},mc={},mon={},longest=null;A.forEach(function(x){var c=words(x.a.text);w+=c;var t=TOPICS[QS[x.n-1][1]];per[t]=(per[t]||0)+1;if(x.a.mood)mc[x.a.mood]=(mc[x.a.mood]||0)+1;var m=new Date(x.a.answeredAt).getMonth();mon[m]=(mon[m]||0)+1;if(!locked(x.a)&&!x.a.hidden&&(!longest||c>longest.c))longest={n:x.n,c:c,t:x.a.text};});
+  var top=Object.keys(per).sort(function(a,c){return per[c]-per[a];})[0],tm=Object.keys(mc).sort(function(a,c){return mc[c]-mc[a];})[0],bm=Object.keys(mon).sort(function(a,c){return mon[c]-mon[a];})[0];
+  var stk=stickersFor(b,me()).filter(function(s){return s.ok;});
+  var S2=[['Your '+y,'<div class="wbig">✨</div><p class="wmid">Your year,<br>in your words</p><p style="font-weight:700;opacity:.9">@'+esc(b.nick)+'</p>'],
+   ['You wrote','<div class="wbig">'+A.length+'</div><p class="wmid">pages this year</p><p style="font-weight:700">That’s '+w.toLocaleString()+' words about you.</p>']];
+  if(top)S2.push(['You kept coming back to','<p class="wmid" style="font-size:44px">'+esc(top)+'</p><p style="font-weight:700">'+per[top]+' answers. Something in there matters to you.</p>']);
+  if(tm){var M=moodOf(tm);S2.push(['Mostly, you felt','<div class="wbig">'+M[1]+'</div><p class="wmid">'+M[2]+'</p><p style="font-weight:700">'+mc[tm]+' times this year.</p>']);}
+  if(bm!==undefined)S2.push(['Your busiest month','<p class="wmid" style="font-size:46px">'+new Date(y,+bm,1).toLocaleDateString('en-US',{month:'long'})+'</p><p style="font-weight:700">'+mon[bm]+' pages written.</p>']);
+  if(longest)S2.push(['Your longest answer','<p class="wmid" style="font-size:22px">'+esc(QS[longest.n-1][0])+'</p><p class="wq">'+esc(longest.t.length>220?longest.t.slice(0,220)+'…':longest.t)+'</p>']);
+  S2.push(['Stickers earned','<div style="font-size:44px;line-height:1.3">'+(stk.map(function(s){return s.e;}).join(' ')||'\u{1F331}')+'</div><p class="wmid">'+stk.length+' sticker'+(stk.length===1?'':'s')+'</p>']);
+  S2.push(['That’s a wrap','<div class="wbig">\u{1F496}</div><p class="wmid">Keep writing.<br>You’re worth getting to know.</p><button class="btn" style="background:#fff;color:#7a1747;margin:10px auto 0;min-width:200px" data-act="closeWrap">Back to my book</button>']);
+  return S2;
+}
+function vWrapped(){var sl=wrapSlides();if(S.wrapIdx>=sl.length)S.wrapIdx=sl.length-1;var s=sl[S.wrapIdx];
+  return '<div class="wrap" id="wrap"><div class="wbg"></div><div class="wshade"></div><div class="bars">'+sl.map(function(_,i){return '<i class="'+(i<S.wrapIdx?'done':i===S.wrapIdx?'cur':'')+'"></i>';}).join('')+'</div>'+
+  '<button class="icon-btn close" data-act="closeWrap" aria-label="Close">'+I.x+'</button><div class="slide" key="'+S.wrapIdx+'"><p class="wk">'+esc(s[0])+'</p>'+s[1]+'</div>'+
+  '<button class="tap" style="left:0" data-act="wrapNav" data-d="-1" aria-label="Previous"></button>'+(S.wrapIdx<sl.length-1?'<button class="tap" style="right:0" data-act="wrapNav" data-d="1" aria-label="Next"></button>':'')+'</div>';}
+var wrapT;function startWrapTimer(){clearTimeout(wrapT);wrapT=setTimeout(function(){if(S.screen!=='wrapped')return;var n=wrapSlides().length;if(S.wrapIdx<n-1){S.wrapIdx++;render();}},5000);}
+function stopWrapTimer(){clearTimeout(wrapT);}
+function vFree(){var b=myBook();var h='<div class="topbar"><button class="back-btn" data-act="back">'+I.back+' Me</button><span class="mid">Free pages</span><span style="width:44px"></span></div><main class="screen" style="padding-top:6px"><p class="muted" style="font-weight:600">For anything the 1000 questions didn’t cover.</p><button class="btn btn-primary" data-act="newFree">'+I.plus+' New free page</button>';
+  if(!b.free.length)h+='<p class="empty">No free pages yet.</p>';
+  b.free.slice().sort(function(x,y){return y.answeredAt-x.answeredAt;}).forEach(function(p){h+='<button class="card" data-act="openFree" data-id="'+esc(p.id)+'"><span class="qline">'+esc(p.title||'Untitled page')+'</span><span class="snip">'+esc(p.text||'')+'</span><span class="muted small" style="font-weight:700">'+fmtD(p.answeredAt)+(p.hidden?' · hidden':'')+'</span></button>';});return h+'</main>';}
+function findFree(id){var b=myBook();for(var i=0;i<b.free.length;i++)if(b.free[i].id===id)return b.free[i];return null;}
+function vFreeEdit(){var p=findFree(S.params.id);if(!p){setTimeout(function(){go('free',{},false);});return '';}
+  return '<div class="topbar"><button class="back-btn" data-act="back">'+I.back+' Free pages</button><span class="mid">Free page</span><button class="icon-btn" data-act="delFree" aria-label="Delete page">'+I.trash+'</button></div>'+
+  '<article class="paper"><div class="qhead"><span class="chip" style="align-self:flex-start">Free page</span><label for="ft" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Title</label><input id="ft" data-input="ftitle" class="qtext" style="border:0;outline:none;background:transparent;width:100%;padding:0" placeholder="Give it a title" value="'+esc(p.title)+'">'+
+  '<div class="tools"><button class="tool'+(p.hidden?' on':'')+'" data-act="fhide">'+I.eyeOff+' Hide from readers</button></div></div>'+
+  '<div class="ans"><textarea id="ta" class="ruled" data-input="free" placeholder="Write anything…" aria-label="Free page text">'+esc(p.text)+'</textarea></div><footer class="foot"><p class="dates" id="dates">'+datesHtml(p)+'</p><span class="status" id="status">'+statusHtml()+'</span></footer></article>';}
+function printItems(){var b=myBook(),out=[];Object.keys(b.answers).map(Number).sort(function(x,y){return x-y;}).forEach(function(n){var a=b.answers[n];if(locked(a))return;if(a.hidden&&!S.printHidden)return;out.push({label:'#'+n+' · '+TOPICS[QS[n-1][1]],q:QS[n-1][0],a:a});});b.free.forEach(function(p){if(p.hidden&&!S.printHidden)return;out.push({label:'Free page',q:p.title||'Untitled page',a:p});});return out;}
+function vPrint(){var items=printItems(),b=myBook();
+  return '<div class="topbar"><button class="back-btn" data-act="back">'+I.back+' Settings</button><span class="mid">Print as a book</span><span style="width:44px"></span></div><main class="screen" style="padding-top:6px"><p class="muted" style="font-weight:600">Turns your answers into a printable book. Choose <b>Save as PDF</b> in the print screen to keep it as a file.</p>'+
+  '<div class="group"><div class="item"><span class="grow"><span>Include hidden answers</span><span class="sub">Turn off if you’ll give it to someone</span></span><button class="switch" role="switch" aria-checked="'+S.printHidden+'" aria-label="Include hidden answers" data-act="printHidden"></button></div></div>'+
+  '<button class="btn btn-primary" data-act="doPrint">'+I.print+' Print / Save as PDF ('+items.length+' pages)</button><p class="sec">Preview</p>'+
+  '<div class="pp" style="align-items:center;text-align:center;padding:34px 20px">'+avatarHtml(b.profile,'lg')+'<span class="kicker">1000 things to write about</span><span class="display" style="font-size:44px;font-weight:600">About @'+esc(b.nick)+'</span></div>'+
+  items.slice(0,5).map(function(it){return '<div class="pp"><span class="kicker" style="color:var(--accent)">'+esc(it.label)+'</span><span class="qline">'+esc(it.q)+'</span><span style="white-space:pre-wrap;font-weight:600">'+esc(it.a.text)+'</span><span class="muted small">'+fmtD(it.a.answeredAt)+'</span></div>';}).join('')+(items.length>5?'<p class="muted small" style="text-align:center;font-weight:700">+ '+(items.length-5)+' more pages</p>':'')+'</main>';}
+function seg(act,cur,opts){return '<div class="seg" role="radiogroup">'+opts.map(function(o){return '<button role="radio" aria-checked="'+(cur===o[0])+'" class="'+(cur===o[0]?'on':'')+'" data-act="'+act+'" data-v="'+o[0]+'">'+(o[2]||'')+o[1]+'</button>';}).join('')+'</div>';}
+function vSettings(){
+  var au=isAuthor(),b=myBook(),acct=db.accounts[me()]||{name:'You',email:''};
+  var h='<main class="screen"><h1 class="h1">Settings</h1><p class="sec">Look & feel</p><div class="group"><div class="seg-wrap"><span class="small muted" style="font-weight:800">Appearance</span>'+seg('theme',dev.theme,[['light','Light',I.sun],['dark','Dark',I.moon],['auto','Auto',I.auto]])+'</div><div class="seg-wrap" style="border-bottom:0"><span class="small muted" style="font-weight:800">Answer text size</span>'+seg('size',dev.size,[['s','Small'],['m','Medium'],['l','Large']])+'</div></div>';
+  if(au){
+    h+='<p class="sec">Your book</p><div class="group">'+
+    '<button class="item" data-act="editProfile"><span class="ic">'+I.me+'</span><span class="grow"><span>Edit profile</span><span class="sub">Avatar, color, bio</span></span>'+I.chev+'</button>'+
+    '<button class="item" data-act="chgNick"><span class="ic">@</span><span class="grow"><span>Username</span><span class="sub">@'+esc(b.nick)+' · tap to change</span></span>'+I.chev+'</button>'+
+    '<button class="item" data-act="shareProfile"><span class="ic">'+I.link+'</span><span class="grow"><span>Share link</span><span class="sub">'+esc(shareLink(b.nick).replace('https://',''))+'</span></span>'+I.chev+'</button>'+
+    '<button class="item" data-act="go" data-to="print"><span class="ic">'+I.print+'</span><span class="grow"><span>Print as a book</span><span class="sub">Printable, book-style PDF</span></span>'+I.chev+'</button>'+
+    '<button class="item" data-act="backup"><span class="ic">'+I.download+'</span><span class="grow"><span>Backup</span><span class="sub">Download all your answers</span></span>'+I.chev+'</button></div>';
+    h+='<p class="sec">Passwords & readers</p><div class="group">'+
+    '<button class="item" data-act="chgOwner"><span class="ic">'+I.key+'</span><span class="grow"><span>Change your password</span><span class="sub">Opens your book</span></span>'+I.chev+'</button>'+
+    '<div class="item"><span class="ic">\u{1F4D6}</span><span class="grow"><span>Let others read</span><span class="sub">'+(b.readerOn?'On · username + reader password':'Off · nobody can read')+'</span></span><button class="switch" role="switch" aria-checked="'+b.readerOn+'" aria-label="Let others read" data-act="readerOn"></button></div>'+
+    (b.readerOn?'<button class="item" data-act="showReader"><span class="ic">'+I.eye+'</span><span class="grow"><span>Reader password</span><span class="sub" id="rpw">•••••••• · tap to show</span></span></button><button class="item" data-act="chgReader"><span class="ic">'+I.key+'</span><span class="grow"><span>Change reader password</span><span class="sub">Readers will need the new one</span></span>'+I.chev+'</button>':'')+'</div>';
+    var off=LIVE?!navigator.onLine:dev.offline,pc=LIVE?(LV?LV.pending():0):dev.pending;
+    h+='<p class="sec">Sync</p><div class="group"><div class="item"><span class="ic">'+(off?I.cloudOff:I.cloud)+'</span><span class="grow"><span>'+(off?'Offline':pc?'Syncing…':'All synced')+'</span><span class="sub">'+(off?pc+' change'+(pc===1?'':'s')+' waiting for internet':'Your answers are saved online')+'</span></span></div>'+(LIVE?'':'<div class="item"><span class="grow"><span>Simulate no internet</span><span class="sub">Mockup only: try writing offline</span></span><button class="switch" role="switch" aria-checked="'+dev.offline+'" aria-label="Simulate no internet" data-act="offline"></button></div>')+'</div>';
+  }
+  h+='<p class="sec">App</p><div class="group"><button class="item" data-act="install"><span class="ic">'+I.phone+'</span><span class="grow"><span>Install app</span><span class="sub">Add to your home screen</span></span>'+I.chev+'</button>'+(au?'<button class="item" data-act="lockNow"><span class="ic">'+I.lock+'</span><span class="grow"><span>Lock now</span><span class="sub">Asks for your password again</span></span></button>':'')+'</div>';
+  h+='<p class="sec">Account</p><div class="group"><div class="item">'+(b&&b.profile?avatarHtml(b.profile):'<span class="avatar" style="background:var(--chip)">\u{1F464}</span>')+'<span class="grow"><span>'+esc(acct.name)+'</span><span class="sub">'+esc(acct.email)+' · Google</span></span></div><button class="item" data-act="signout" style="color:var(--danger)"><span class="ic" style="color:var(--danger)">'+I.out+'</span><span class="grow"><span>Sign out</span></span></button></div>';
+  if(!LIVE)h+='<p class="sec">Mockup</p><div class="group">'+(au&&b.samples?'<button class="item" data-act="clearSamples"><span class="grow"><span>Clear sample answers</span><span class="sub">Keeps your username & passwords</span></span></button>':'')+'<button class="item" data-act="resetAll" style="color:var(--danger)"><span class="grow"><span>Reset the whole mockup</span><span class="sub">Back to the start</span></span></button></div>';
+  return h+'</main>';
+}
+VIEWS={loading:vLoading,welcome:vWelcome,choose:vChoose,setup:vSetup,lock:vLock,home:vHome,contents:vContents,page:vPage,focus:vFocus,shelf:vShelf,open:vOpen,rprofile:vRProfile,rlist:vRList,rbook:vRBook,me:vMe,stats:vStats,stickers:vStickers,wrapped:vWrapped,free:vFree,freeEdit:vFreeEdit,print:vPrint,settings:vSettings};
+
+/* ---------- saving ---------- */
+function scheduleSave(fn){clearTimeout(S.saveT);S.pendingSave=fn;S.saveT=setTimeout(flushSave,500);}
+function flushSave(){clearTimeout(S.saveT);var f=S.pendingSave;S.pendingSave=null;if(f)f();}
+function saveAnswer(n,text){
+  var b=myBook(),a=b.answers[n],now=Date.now();if(!text.trim())return;
+  if(S.again===n&&a){a.versions=(a.versions||[]).concat([{text:a.text,at:a.answeredAt,mood:a.mood||null}]);a.text=text;a.answeredAt=now;a.editedAt=null;delete a.mood;S.again=null;S.fresh['q'+n]=1;S.editing=true;saveDb();markPending();refreshBits(n);checkStickers();return;}
+  if(!a){b.answers[n]={text:text,answeredAt:now,editedAt:null};S.fresh['q'+n]=1;delete b.skipped[n];if(S.params.n===n)S.editing=true;saveDb();markPending();refreshBits(n);checkStickers();return;}
+  if(a.text===text)return;a.text=text;if(!S.fresh['q'+n])a.editedAt=now;saveDb();markPending();refreshBits(n);
+}
+function refreshBits(n){var a=myBook().answers[n],el;if((el=document.getElementById('dates')))el.innerHTML=datesHtml(a);if((el=document.getElementById('tools')))el.innerHTML=toolsHtml(n);if((el=document.getElementById('foot')))el.innerHTML=footBtns(n);var s=document.getElementById('status');if(s)s.innerHTML=statusHtml();}
+function saveFree(id,field,val){var p=findFree(id);if(!p||p[field]===val)return;p[field]=val;if(!S.fresh['f'+id])p.editedAt=Date.now();saveDb();markPending();var el=document.getElementById('dates');if(el)el.innerHTML=datesHtml(p);if(field==='text')checkStickers();}
+function askMood(n){var a=myBook().answers[n];if(!a)return;sheet('<h3>How do you feel after writing this?</h3><div class="moods">'+MOODS.map(function(m){return '<button class="mood'+(a.mood===m[0]?' on':'')+'" data-act="setMood" data-m="'+m[0]+'"><span>'+m[1]+'</span>'+m[2]+'</button>';}).join('')+'</div><button class="btn btn-ghost" data-act="closeSheet">Skip</button>');}
+
+/* ---------- share card ---------- */
+function wrapLines(x,text,maxW){var ws=text.split(/\s+/),lines=[],cur='';ws.forEach(function(w){var t=cur?cur+' '+w:w;if(x.measureText(t).width>maxW&&cur){lines.push(cur);cur=w;}else cur=t;});if(cur)lines.push(cur);return lines;}
+function drawCard(q,text,nick,avatar){
+  var c=document.createElement('canvas');c.width=1080;c.height=1350;var x=c.getContext('2d');
+  var g=x.createLinearGradient(0,0,1080,1350);g.addColorStop(0,'#FF8CB8');g.addColorStop(.55,'#FFAE94');g.addColorStop(1,'#C9A7FF');x.fillStyle=g;x.fillRect(0,0,1080,1350);
+  x.globalAlpha=.25;x.fillStyle='#fff';x.beginPath();x.arc(960,140,220,0,7);x.fill();x.beginPath();x.arc(90,1240,180,0,7);x.fill();x.globalAlpha=1;
+  x.fillStyle='#FFFFFF';x.shadowColor='rgba(120,20,70,.18)';x.shadowBlur=40;x.shadowOffsetY=16;
+  if(x.roundRect){x.beginPath();x.roundRect(80,170,920,1010,56);x.fill();}else x.fillRect(80,170,920,1010);x.shadowColor='transparent';
+  x.font='600 30px Nunito, sans-serif';x.fillStyle='#C42E68';x.fillText('ABOUT ME  ·  1000 THINGS TO WRITE ABOUT',140,260);
+  x.font='500 54px Fredoka, Nunito, sans-serif';x.fillStyle='#43213A';var ql=wrapLines(x,q,800).slice(0,4),y=345;ql.forEach(function(l){x.fillText(l,140,y);y+=68;});
+  y+=30;x.font='600 40px Nunito, sans-serif';x.fillStyle='#5A3048';var al=wrapLines(x,text,800),max=Math.floor((1090-y)/58);if(al.length>max){al=al.slice(0,max);al[max-1]=al[max-1].replace(/\s*\S*$/,'')+'…';}
+  al.forEach(function(l){x.fillText(l,140,y);x.fillStyle='#F7D3E2';x.fillRect(140,y+16,800,3);x.fillStyle='#5A3048';y+=58;});
+  x.font='64px sans-serif';x.fillText(avatar,140,1290);x.font='700 40px Nunito, sans-serif';x.fillStyle='#FFFFFF';x.fillText('@'+nick,230,1278);
+  return c.toDataURL('image/png');
+}
+
+/* ---------- actions ---------- */
+var ACT={
+ closeSheet:function(el,e){if(el.dataset.self&&e.target!==el)return;closeSheet();},
+ cfYes:function(){closeSheet();if(S.cf)S.cf(true);S.cf=null;},cfNo:function(){closeSheet();if(S.cf)S.cf(false);S.cf=null;},
+ peek:function(el){var i=document.getElementById(el.dataset.for);if(i){i.type=i.type==='password'?'text':'password';el.setAttribute('aria-label',i.type==='password'?'Show password':'Hide password');}},
+ google:function(){if(LIVE){LV.signIn();return;}
+  sheet('<h3>Choose an account</h3><p class="muted small" style="font-weight:600">Mockup: pick who to try as.</p><button class="acct" data-act="pickAcct" data-u="me"><span class="avatar" style="background:#FFD1E3">J</span><span style="display:flex;flex-direction:column"><b>John Laurice</b><span class="muted small">You</span></span></button><button class="acct" data-act="pickAcct" data-u="jam"><span class="avatar" style="background:#D6ECFF">J</span><span style="display:flex;flex-direction:column"><b>Jam</b><span class="muted small">A friend with no book yet, good for testing reading</span></span></button>');},
+ pickAcct:function(el){closeSheet();dev.account=el.dataset.u;saveDev();S.unlocked=false;S.readOK={};start();},
+ signout:function(){confirmBox('Sign out?','You’ll need to sign in with Google again.','Sign out',true).then(function(ok){if(!ok)return;if(LIVE){S.unlocked=false;LV.signOut();return;}dev.account=null;saveDev();S.unlocked=false;S.readOK={};S.readUid=null;start();});},
+ lockNow:function(){S.unlocked=false;S.readOK={};start();},
+ go:function(el){closeSheet();go(el.dataset.to);},
+ tab:function(el){tab(el.dataset.to);},back:function(){back();},
+ open:function(el){go('page',{n:+el.dataset.n});},
+ randomQ:function(){var b=myBook(),c=[];for(var n=1;n<=TOTAL;n++)if(!b.answers[n])c.push(n);if(!c.length)c=[1];go('page',{n:c[Math.floor(Math.random()*c.length)]});},
+ roll:function(){var card=document.getElementById('dicecard'),d=document.getElementById('dice');if(!card||card.classList.contains('rolling'))return;card.classList.add('rolling');var t=0,iv=setInterval(function(){d.innerHTML=diceFace(1+Math.floor(Math.random()*6));if(++t>7)clearInterval(iv);},100);
+   setTimeout(function(){var b=myBook(),c=[];for(var n=1;n<=TOTAL;n++)if(!b.answers[n]&&!b.skipped[n])c.push(n);if(!c.length)c=[1];go('page',{n:c[Math.floor(Math.random()*c.length)]});},1000);},
+ randomMemory:function(){var b=myBook(),k=Object.keys(b.answers).filter(function(k){return !locked(b.answers[k]);});if(!k.length){toast('Write something first \u{1F338}');return;}go('page',{n:+k[Math.floor(Math.random()*k.length)]});},
+ topic:function(el){S.filter=el.dataset.f;S.query='';tab('contents');},
+ filter:function(el){S.filter=el.dataset.f;render();},
+ rlFilter:function(el){S.rlFilter=el.dataset.f;render();},
+ prevQ:function(){var n=S.params.n;if(n>1)go('page',{n:n-1},false);},
+ nextQ:function(){var n=S.params.n;if(n<TOTAL)go('page',{n:n+1},false);},
+ edit:function(){delete S.fresh['q'+S.params.n];S.editing=true;render();var ta=document.getElementById('ta');if(ta){ta.focus();try{ta.setSelectionRange(ta.value.length,ta.value.length);}catch(e){}}},
+ done:function(){var n=S.params.n,ta=document.getElementById('ta'),b=myBook();if(ta&&!ta.value.trim()&&b.answers[n]&&S.again!==n){ACT.del();return;}flushSave();var wasAgain=S.again===n;S.again=null;S.editing=false;render();if(b.answers[n]&&!wasAgain){if(!b.answers[n].mood)askMood(n);else toast('Saved');}},
+ del:function(){var n=S.params.n;confirmBox('Delete this answer?','The question will be empty again. This can’t be undone.','Delete',true).then(function(ok){if(!ok)return;S.pendingSave=null;var b=myBook();delete b.answers[n];if(b.profile.pinned===n)b.profile.pinned=null;saveDb();markPending();S.editing=false;render();toast('Answer deleted');});},
+ skip:function(){var n=S.params.n;myBook().skipped[n]=true;saveDb();toast('Skipped for now');if(n<TOTAL)go('page',{n:n+1},false);else render();},
+ unskip:function(){delete myBook().skipped[S.params.n];saveDb();render();},
+ fav:function(){var a=myBook().answers[S.params.n];if(!a)return;a.fav=!a.fav;saveDb();refreshBits(S.params.n);toast(a.fav?'Added to favorites \u{1F496}':'Removed from favorites');},
+ hide:function(){var a=myBook().answers[S.params.n];if(!a)return;a.hidden=!a.hidden;saveDb();refreshBits(S.params.n);toast(a.hidden?'Hidden from readers':'Readers can see this');},
+ pin:function(){var b=myBook(),n=S.params.n;b.profile.pinned=b.profile.pinned===n?null:n;saveDb();refreshBits(n);toast(b.profile.pinned?'Pinned to your profile \u{1F4CC}':'Unpinned');},
+ mood:function(){askMood(S.params.n);},
+ setMood:function(el){var a=myBook().answers[S.params.n];if(!a)return;a.mood=el.dataset.m;saveDb();closeSheet();if(S.screen==='page')render();toast('Feeling saved '+moodOf(a.mood)[1]);checkStickers();},
+ focus:function(){var n=S.params.n;flushSave();S.screen='focus';var again=S.again,ed=S.editing;app.className='';app.innerHTML=vFocus();S.again=again;S.editing=ed;var ta=document.getElementById('ta');grow(ta);ta.focus();},
+ exitFocus:function(){flushSave();S.screen='page';var n=S.params.n,b=myBook();S.editing=false;S.again=null;render();if(b.answers[n]&&!b.answers[n].mood)askMood(n);},
+ capsule:function(){var a=myBook().answers[S.params.n];if(!a)return;var t=new Date(Date.now()+DAY),min=t.toISOString().slice(0,10),def=new Date(Date.now()+365*DAY).toISOString().slice(0,10);
+  sheet('<div style="text-align:center;font-size:54px" class="env">\u{1F48C}</div><h3 style="text-align:center">Seal it in a time capsule</h3><p class="muted" style="font-weight:600;text-align:center">You won’t be able to read or edit this answer until the date you pick. Readers can’t see it either.</p><form data-form="capsule" style="display:flex;flex-direction:column;gap:12px" novalidate><div class="field"><label for="cd">Open on</label><div class="inp"><input id="cd" type="date" min="'+min+'" value="'+def+'"></div></div><p class="err" id="err"></p><button class="btn btn-primary" type="submit">Seal it ✨</button></form>');},
+ openEarly:function(){confirmBox('Open it early?','The surprise was set for later. Open it now anyway?','Open now',false).then(function(ok){if(!ok)return;var a=myBook().answers[S.params.n];delete a.lockUntil;saveDb();render();confetti();});},
+ capsules:function(){var b=myBook(),L=Object.keys(b.answers).filter(function(k){return b.answers[k].lockUntil;}).map(Number);
+  sheet('<h3>Time capsules</h3>'+(L.length?L.map(function(n){var a=b.answers[n],lk=locked(a);return '<button class="lrow" data-act="openCap" data-n="'+n+'"><span class="n">'+(lk?'\u{1F48C}':'\u{1F4EC}')+'</span><span class="m"><span class="q">'+esc(QS[n-1][0])+'</span><span class="muted small" style="font-weight:700">'+(lk?'Opens '+fmtD(a.lockUntil):'Opened')+'</span></span></button>';}).join(''):'<p class="muted" style="font-weight:600">No time capsules yet. Seal one from any answered page with the ⏳ button.</p>'));},
+ openCap:function(el){closeSheet();go('page',{n:+el.dataset.n});},
+ again:function(){var n=S.params.n;S.again=n;S.editing=true;render();var ta=document.getElementById('ta');if(ta)ta.focus();toast('Your old answer is saved as “Then”');},
+ thenNow:function(el){S.params.then=el.dataset.v==='1';render();},
+ song:function(){var a=myBook().answers[S.params.n];if(!a)return;var s=a.song||{};sheet('<h3>Song for this page</h3><p class="muted small" style="font-weight:600">Paste a Spotify or YouTube link.</p><form data-form="song" style="display:flex;flex-direction:column;gap:12px" novalidate>'+txtField('su','Link',s.url,'https://')+txtField('st','Song name (optional)',s.title,'e.g. Our song')+'<p class="err" id="err"></p><button class="btn btn-primary" type="submit">Save song</button>'+(a.song?'<button class="btn btn-danger" type="button" data-act="rmSong">Remove song</button>':'')+'</form>');},
+ rmSong:function(){var a=myBook().answers[S.params.n];delete a.song;saveDb();closeSheet();render();},
+ shareCard:function(){var b=myBook(),n=S.params.n,a=b.answers[n];if(!a)return;sheet('<h3>Share card</h3><p class="muted small" style="font-weight:600">Making your card…</p>');
+  var draw=function(){var url=drawCard(QS[n-1][0],a.text,b.nick,b.profile.avatar);if(!b.shared){b.shared=true;saveDb();}
+   sheet('<h3>Share card \u{1F48C}</h3><img class="cardimg" alt="Share card for page '+n+'" src="'+url+'"><p class="muted small" style="font-weight:600;text-align:center">On your phone, long-press the image to save it, then post it to your story.</p><a class="btn btn-primary" download="about-me-'+n+'.png" href="'+url+'">'+I.download+' Download image</a><button class="btn btn-ghost" data-act="closeSheet">Done</button>');checkStickers();};
+  try{Promise.all([document.fonts.load('500 54px Fredoka'),document.fonts.load('600 40px Nunito')]).then(draw,draw);}catch(e){draw();}},
+ react:function(el){var key=readerItems(rBook())[S.bookIdx].key,R=(db.reactions[S.readUid]=db.reactions[S.readUid]||{}),k=(R[key]=R[key]||{}),e=el.dataset.e;
+  if(k[me()]&&k[me()].e===e){delete k[me()];}else{k[me()]={e:e,at:Date.now()};burst(el,e);}saveDb();var y=window.scrollY;render();window.scrollTo(0,y);var nb=document.querySelector('.rx[data-e="'+e+'"]');if(nb){nb.classList.add('pop');}},
+ seeRx:function(){var rx=newRx(me());sheet('<h3>New reactions \u{1F48C}</h3>'+rx.map(function(r){var n=r.key.charAt(0)==='q'?+r.key.slice(1):null;return '<button class="lrow" data-act="rxOpen" data-n="'+(n||'')+'"><span class="n" style="font-size:24px">'+r.e+'</span><span class="m"><span class="q">'+esc(whoName(r.who))+'</span><span class="snip">'+(n?esc(QS[n-1][0]):'A free page')+'</span></span></button>';}).join('')+'<button class="btn btn-primary" data-act="rxDone">Mark all as seen</button>');},
+ rxOpen:function(el){var n=+el.dataset.n;closeSheet();(db.seen[me()]=db.seen[me()]||{}).rx=Date.now();saveDb();if(n)go('page',{n:n});},
+ rxDone:function(){(db.seen[me()]=db.seen[me()]||{}).rx=Date.now();saveDb();closeSheet();render();},
+ newFree:function(){var id='f'+Date.now().toString(36);myBook().free.push({id:id,title:'',text:'',answeredAt:Date.now(),editedAt:null});saveDb();go('freeEdit',{id:id});S.fresh['f'+id]=1;setTimeout(function(){var t=document.getElementById('ft');if(t)t.focus();},60);},
+ openFree:function(el){go('freeEdit',{id:el.dataset.id});},
+ fhide:function(){var p=findFree(S.params.id);p.hidden=!p.hidden;saveDb();render();toast(p.hidden?'Hidden from readers':'Readers can see this');},
+ delFree:function(){confirmBox('Delete this page?','This can’t be undone.','Delete',true).then(function(ok){if(!ok)return;S.pendingSave=null;var b=myBook();b.free=b.free.filter(function(p){return p.id!==S.params.id;});saveDb();S.stack=[{s:'me',p:{}}];go('free',{},false);toast('Page deleted');});},
+ calNav:function(el){var m=S.calMonth[1]+ +el.dataset.d,y=S.calMonth[0];if(m<0){m=11;y--;}if(m>11){m=0;y++;}S.calMonth=[y,m];render();},
+ wrapNav:function(el){var n=wrapSlides().length,i=S.wrapIdx+ +el.dataset.d;if(i<0)i=0;if(i>=n){ACT.closeWrap();return;}S.wrapIdx=i;render();},
+ closeWrap:function(){stopWrapTimer();S.wrapIdx=0;back();},
+ editProfile:function(){var p=myBook().profile;S.tmpAv=p.avatar;S.tmpCol=p.color;
+  sheet('<h3>Edit profile</h3><div style="display:flex;justify-content:center" id="avprev">'+avatarHtml(p,'xl')+'</div><p class="sec">Avatar</p><div class="picks">'+AVATARS.map(function(a){return '<button class="pick'+(a===p.avatar?' on':'')+'" data-act="pickAv" data-v="'+a+'" aria-label="Avatar '+a+'">'+a+'</button>';}).join('')+'</div>'+
+  '<p class="sec">Color</p><div class="picks">'+COLORS.map(function(c){return '<button class="swatch'+(c===p.color?' on':'')+'" style="background:'+c+'" data-act="pickCol" data-v="'+c+'" aria-label="Color '+c+'"></button>';}).join('')+'</div>'+
+  '<form data-form="profile" style="display:flex;flex-direction:column;gap:12px" novalidate><div class="field"><label for="bio">Short bio</label><div class="inp"><textarea id="bio" maxlength="120" placeholder="A little about you…">'+esc(p.bio)+'</textarea></div></div><button class="btn btn-primary" type="submit">Save profile</button></form>');},
+ pickAv:function(el){S.tmpAv=el.dataset.v;layer.querySelectorAll('.pick').forEach(function(b){b.classList.toggle('on',b===el);});document.getElementById('avprev').innerHTML=avatarHtml({avatar:S.tmpAv,color:S.tmpCol},'xl');},
+ pickCol:function(el){S.tmpCol=el.dataset.v;layer.querySelectorAll('.swatch').forEach(function(b){b.classList.toggle('on',b===el);});document.getElementById('avprev').innerHTML=avatarHtml({avatar:S.tmpAv,color:S.tmpCol},'xl');},
+ shareProfile:function(){var b=myBook(),u=shareLink(b.nick);sheet('<div style="display:flex;justify-content:center">'+avatarHtml(b.profile,'xl')+'</div><h3 style="text-align:center">Share your book</h3><p class="muted" style="font-weight:600;text-align:center">Send this link. Friends sign in with Google, and your username is already filled in. They just type your reader password.</p><div class="card" style="word-break:break-all;font-weight:800;color:var(--accent)">'+esc(u)+'</div><button class="btn btn-primary" data-act="copyLink" data-u="'+esc(u)+'">'+I.copy+' Copy link</button>'+(b.readerOn?'':'<p class="err">Reading is off right now. Turn it on in Settings.</p>'));},
+ copyLink:function(el){try{navigator.clipboard.writeText(el.dataset.u).then(function(){toast('Link copied \u{1F517}');},function(){toast('Couldn’t copy here');});}catch(e){toast('Couldn’t copy here');}},
+ chgNick:function(){sheet('<h3>Change username</h3><p class="muted small" style="font-weight:600">Friends will need your new username. Your share link changes too.</p><form data-form="nick" style="display:flex;flex-direction:column;gap:12px" novalidate>'+txtField('nk','New username',myBook().nick,'','@')+'<p class="err" id="err"></p><button class="btn btn-primary" type="submit">Save username</button></form>');},
+ openNick:function(el){go('open',{nick:el.dataset.nick});},
+ toggleShelf:function(){var b=rBook(),L=(db.shelves[me()]=db.shelves[me()]||[]),i=L.indexOf(b.nick);db.shelfInfo=db.shelfInfo||{};if(i>=0){L.splice(i,1);delete db.shelfInfo[b.nick];}else{L.push(b.nick);db.shelfInfo[b.nick]={avatar:b.profile.avatar,color:b.profile.color,bio:b.profile.bio||''};}saveDb();render();toast(i>=0?'Removed from your shelf':'Saved to your shelf \u{1F4DA}');},
+ readAt:function(el){S.bookIdx=+el.dataset.i;S.bookDir='';go('rbook');},
+ readKey:function(el){var it=readerItems(rBook());S.bookIdx=Math.max(0,it.findIndex(function(x){return x.key===el.dataset.key;}));S.bookDir='';go('rbook');},
+ readRandom:function(){var n=readerItems(rBook()).length;if(!n)return;S.bookIdx=Math.floor(Math.random()*n);S.bookDir='next';if(S.screen==='rbook')render();else go('rbook');},
+ bookPrev:function(){turn(-1);},bookNext:function(){turn(1);},
+ theme:function(el){dev.theme=el.dataset.v;saveDev();applyPrefs();render();},
+ size:function(el){dev.size=el.dataset.v;saveDev();applyPrefs();render();},
+ offline:function(){dev.offline=!dev.offline;if(!dev.offline&&dev.pending){toast(dev.pending+' change'+(dev.pending===1?'':'s')+' synced');dev.pending=0;}else if(dev.offline)toast('Offline. Keep writing, it’ll sync later.');saveDev();render();},
+ setupReader:function(el){var on=el.getAttribute('aria-checked')!=='true';el.setAttribute('aria-checked',on);document.getElementById('rf').style.display=on?'flex':'none';},
+ readerOn:function(){var b=myBook();if(b.readerOn){confirmBox('Turn off reading?','Nobody can read your book until you turn it back on.','Turn off',true).then(function(ok){if(!ok)return;if(LIVE){LV.setReaderOn(false).then(function(){render();},function(e){toast(e.message);});return;}b.readerOn=false;saveDb();render();});}
+   else if(!b.readerPlain)ACT.chgReader();else{if(LIVE){LV.setReaderOn(true).then(function(){render();toast('Reading is on');},function(e){toast(e.message);});return;}b.readerOn=true;saveDb();render();toast('Reading is on');}},
+ showReader:function(){var el=document.getElementById('rpw');if(el)el.textContent=myBook().readerPlain||'(not set)';},
+ chgOwner:function(){sheet('<h3>Change your password</h3><form data-form="chgOwner" style="display:flex;flex-direction:column;gap:12px" novalidate>'+pwField('c0','Current password')+pwField('c1','New password')+pwField('c2','Type it again')+'<p class="err" id="err"></p><button class="btn btn-primary" type="submit">Save password</button></form>');},
+ chgReader:function(){sheet('<h3>Reader password</h3><p class="muted small" style="font-weight:600">Friends type this with your username. They can only read.</p><form data-form="chgReader" style="display:flex;flex-direction:column;gap:12px" novalidate>'+pwField('c1','New reader password')+pwField('c2','Type it again')+'<p class="err" id="err"></p><button class="btn btn-primary" type="submit">Save reader password</button></form>');},
+ install:function(){if(window.__bip){var bp=window.__bip;window.__bip=null;bp.prompt();return;}sheet('<h3>Install the app</h3><div class="card"><p class="card-title">Android (Chrome)</p><p style="font-weight:600">Tap the <b>⋮ menu</b>, then <b>Add to Home screen</b> or <b>Install app</b>.</p></div><div class="card"><p class="card-title">iPhone (Safari)</p><p style="font-weight:600">Tap <b>Share</b>, then <b>Add to Home Screen</b>.</p></div><button class="btn btn-primary" data-act="closeSheet">Got it</button>');},
+ backup:function(){sheet('<h3>Backup</h3><p class="muted" style="font-weight:600">Every answer, its date, mood, and your free pages in one text file.</p><button class="btn btn-primary" data-act="dlBackup">'+I.download+' Download .txt</button><button class="btn btn-ghost" data-act="cpBackup">'+I.copy+' Copy everything</button>');},
+ dlBackup:function(){var t=backupText();try{var bl=new Blob([t],{type:'text/plain'}),u=URL.createObjectURL(bl),a=document.createElement('a');a.href=u;a.download='about-me-backup.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u);},2000);}catch(e){}toast(LIVE?'Backup downloaded':'Download started (in this preview, use Copy if nothing happens)');},
+ cpBackup:function(){try{navigator.clipboard.writeText(backupText()).then(function(){toast('Copied all your answers');},function(){toast('Couldn’t copy here');});}catch(e){toast('Couldn’t copy here');}},
+ printHidden:function(){S.printHidden=!S.printHidden;render();},
+ doPrint:function(){buildPrint();try{window.print();}catch(e){}if(!LIVE)toast('If nothing opened, printing works once the app is live');},
+ clearSamples:function(){confirmBox('Clear sample answers?','Your username, passwords and profile stay.','Clear',true).then(function(ok){if(!ok)return;var b=myBook();b.answers={};b.skipped={};b.free=[];b.samples=false;b.profile.pinned=null;b.shared=false;db.reactions[me()]={};db.seen[me()]={stickers:[],rx:Date.now()};saveDb();tab('home');toast('Fresh start \u{1F331}');});},
+ resetAll:function(){confirmBox('Reset the mockup?','Everything goes back to the start.','Reset',true).then(function(ok){if(!ok)return;db=freshDb();fixHashes();saveDb();dev.account=null;dev.pending=0;dev.offline=false;dev.pos={};dev.visits={};saveDev();S.unlocked=false;S.readOK={};S.readUid=null;start();});}
+};
+function backupText(){var b=myBook(),L=['ABOUT @'+b.nick.toUpperCase(),'1000 things to write about','Backup: '+fmtDT(Date.now()),''];
+  Object.keys(b.answers).map(Number).sort(function(x,y){return x-y;}).forEach(function(n){var a=b.answers[n];L.push('#'+n+' ['+TOPICS[QS[n-1][1]]+']'+(a.fav?' [favorite]':'')+(a.hidden?' [hidden]':'')+(a.lockUntil?' [time capsule until '+fmtD(a.lockUntil)+']':''),QS[n-1][0],a.text,'Answered '+fmtDT(a.answeredAt)+(a.editedAt?' | Edited '+fmtDT(a.editedAt):'')+(a.mood?' | Mood: '+moodOf(a.mood)[2]:'')+(a.song?' | Song: '+a.song.url:''));
+    (a.versions||[]).forEach(function(v){L.push('  Then ('+fmtD(v.at)+'): '+v.text);});L.push('');});
+  b.free.forEach(function(p){L.push('[Free page] '+(p.title||'Untitled'),p.text,'Written '+fmtDT(p.answeredAt),'');});return L.join('\n');}
+function buildPrint(){var b=myBook(),h='<section class="pb-cover"><div style="font-size:60pt">'+esc(b.profile.avatar)+'</div><div class="pb-n">1000 things to write about</div><h1>About @'+esc(b.nick)+'</h1><div>'+esc(b.profile.bio||'')+'</div></section>';
+  printItems().forEach(function(it){h+='<section class="pb-item"><div class="pb-n">'+esc(it.label)+'</div><p class="pb-q">'+esc(it.q)+'</p><div class="pb-a">'+esc(it.a.text)+'</div><div class="pb-d">'+fmtD(it.a.answeredAt)+(it.a.mood?' · '+moodOf(it.a.mood)[1]:'')+'</div></section>';});document.getElementById('printRoot').innerHTML=h;}
+
+/* ---------- forms ---------- */
+function val(id){var e=document.getElementById(id);return e?e.value:'';}
+function err(m){var e=document.getElementById('err');if(e){e.textContent=m;var f=e.closest('form');if(f){f.classList.remove('shake');void f.offsetWidth;f.classList.add('shake');}}}
+var FORM={
+ setup:function(){
+  var nk=val('nk').trim().toLowerCase().replace(/^@/,''),p1=val('p1'),p2=val('p2'),ron=document.getElementById('rsw').getAttribute('aria-checked')==='true',r1=val('r1'),r2=val('r2');
+  if(!validNick(nk))return err('Username: 3–20 lowercase letters, numbers, _ or .');
+  if(!LIVE&&db.usernames[nk]&&db.usernames[nk]!==me())return err('@'+nk+' is taken. Try another one.');
+  if(p1.length<6)return err('Your password needs at least 6 characters.');if(p1!==p2)return err('Your passwords don’t match.');
+  if(ron){if(r1.length<6)return err('The reader password needs at least 6 characters.');if(r1!==r2)return err('The reader passwords don’t match.');if(r1===p1)return err('Use a different password for readers.');}
+  if(LIVE){var btn=document.querySelector('form [type=submit]');btn.disabled=true;btn.textContent='Creating…';LV.setup(nk,p1,ron?r1:null).then(function(){S.unlocked=true;confetti();toast('Your book is ready ✨');start();},function(e){btn.disabled=false;btn.textContent='Create my book';err(e.message);});return;}
+  Promise.all([hash(p1),ron?hash(r1):Promise.resolve(null)]).then(function(h){var b=newBook(nk);b.ownerHash=h[0];b.readerOn=ron;b.readerHash=h[1];b.readerPlain=ron?r1:null;db.authors[me()]=b;db.usernames[nk]=me();seedMine(db,me());saveDb();S.unlocked=true;confetti();toast('Your book is ready ✨');start();});
+ },
+ lock:function(){var p=val('lp');if(!p)return err('Type your password.');hash(p).then(function(h){if(h!==myBook().ownerHash)return err('Wrong password. Try again.');S.unlocked=true;start();});},
+ open:function(){
+  var nk=val('on').trim().toLowerCase().replace(/^@/,''),pw=val('op');if(!nk||!pw)return err('Type the username and reader password.');
+  if(LIVE){LV.readerUnlock(nk,pw).then(function(r){if(!r.ok)return err(r.msg);afterOpen(r.uid,nk);});return;}
+  var uid=db.usernames[nk],b=uid&&db.authors[uid];if(!b)return err('No book found for @'+nk+'.');if(uid===me())return err('That’s your own book! Open it from Home.');
+  hash(pw).then(function(h){if(!b.readerOn||h!==b.readerHash)return err('Wrong password, or reading is turned off.');afterOpen(uid,nk);});
+ },
+ chgOwner:function(){var c0=val('c0'),c1=val('c1'),c2=val('c2'),b=myBook();hash(c0).then(function(h){if(h!==b.ownerHash)return err('Your current password is wrong.');if(c1.length<6)return err('Use at least 6 characters.');if(c1!==c2)return err('The new passwords don’t match.');if(c1===b.readerPlain)return err('Use something different from the reader password.');hash(c1).then(function(n){b.ownerHash=n;saveDb();closeSheet();toast('Password changed');});});},
+ chgReader:function(){var c1=val('c1'),c2=val('c2'),b=myBook();if(c1.length<6)return err('Use at least 6 characters.');if(c1!==c2)return err('The passwords don’t match.');
+  hash(c1).then(function(h){if(h===b.ownerHash)return err('Use something different from your own password.');if(LIVE){LV.changeReader(c1).then(function(){closeSheet();render();toast('Reader password saved');},function(e){err(e.message);});return;}b.readerHash=h;b.readerPlain=c1;b.readerOn=true;saveDb();closeSheet();render();toast('Reader password saved');});},
+ nick:function(){var nk=val('nk').trim().toLowerCase().replace(/^@/,''),b=myBook();if(nk===b.nick){closeSheet();return;}if(!validNick(nk))return err('3–20 lowercase letters, numbers, _ or .');
+  if(LIVE){LV.changeNick(nk).then(function(){closeSheet();render();toast('You’re now @'+nk);},function(e){err(e.message);});return;}
+  if(db.usernames[nk])return err('@'+nk+' is taken.');delete db.usernames[b.nick];Object.keys(db.shelves).forEach(function(u){var L=db.shelves[u],i=L.indexOf(b.nick);if(i>=0)L[i]=nk;});b.nick=nk;db.usernames[nk]=me();saveDb();closeSheet();render();toast('You’re now @'+nk);},
+ profile:function(){var b=myBook();b.profile.avatar=S.tmpAv;b.profile.color=S.tmpCol;b.profile.bio=val('bio').trim().slice(0,120);saveDb();closeSheet();render();toast('Profile saved \u{1F338}');},
+ song:function(){var u=val('su').trim(),t=val('st').trim(),ok=false;try{var x=new URL(u);ok=x.protocol==='https:'||x.protocol==='http:';}catch(e){}if(!ok)return err('Paste a full link that starts with https://');var a=myBook().answers[S.params.n];a.song={url:u,title:t};saveDb();closeSheet();render();toast('Song added \u{1F3B5}');},
+ capsule:function(){var v=val('cd');if(!v)return err('Pick a date.');var p=v.split('-'),t=new Date(+p[0],+p[1]-1,+p[2]).getTime();if(t<=Date.now())return err('Pick a date in the future.');var a=myBook().answers[S.params.n];a.lockUntil=t;saveDb();closeSheet();S.editing=false;render();confetti();toast('Sealed until '+fmtD(t)+' \u{1F48C}');checkStickers();}
+};
+function afterOpen(uid,nk){S.readUid=uid;S.readOK[uid]=true;S.prevVisit=(dev.visits[nk]||0);dev.visits[nk]=Date.now();saveDev();S.rlFilter='All';S.stack=[];go('rprofile',{},false);}
+
+/* ---------- events ---------- */
+document.addEventListener('click',function(e){var el=e.target.closest('[data-act]');if(!el||el.disabled)return;var f=ACT[el.dataset.act];if(f)f(el,e);});
+document.addEventListener('submit',function(e){var f=e.target.closest('form[data-form]');if(!f)return;e.preventDefault();var h=FORM[f.dataset.form];if(h)h();});
+document.addEventListener('input',function(e){var k=e.target.dataset&&e.target.dataset.input;if(!k)return;
+  if(k==='search'){S.query=e.target.value;document.getElementById('rows').innerHTML=rowsHtml();}
+  else if(k==='answer'){grow(e.target);var n=S.params.n,v=e.target.value,st=document.getElementById('status');if(st&&myBook().answers[n])st.innerHTML='Saving…';scheduleSave(function(){saveAnswer(n,v);var s2=document.getElementById('status');if(s2)s2.innerHTML=statusHtml();});}
+  else if(k==='free'){grow(e.target);var id=S.params.id,fv=e.target.value;scheduleSave(function(){saveFree(id,'text',fv);});}
+  else if(k==='ftitle'){var id2=S.params.id,tv=e.target.value;scheduleSave(function(){saveFree(id2,'title',tv);});}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&layer.innerHTML){closeSheet();if(S.cf){S.cf(false);S.cf=null;}}
+  if(!layer.innerHTML&&S.screen==='rbook'){if(e.key==='ArrowRight')turn(1);if(e.key==='ArrowLeft')turn(-1);}
+  if(!layer.innerHTML&&S.screen==='wrapped'){if(e.key==='ArrowRight')ACT.wrapNav({dataset:{d:1}});if(e.key==='ArrowLeft')ACT.wrapNav({dataset:{d:-1}});}});
+window.addEventListener('resize',function(){var ta=document.getElementById('ta');if(ta)grow(ta);});
+document.addEventListener('visibilitychange',function(){if(document.hidden)flushSave();});
+
+function softRender(){if(layer.innerHTML)return;var a=document.activeElement;if(a&&(a.tagName==='TEXTAREA'||a.tagName==='INPUT')&&app.contains(a))return;if((S.screen==='page'&&S.editing)||S.screen==='focus')return;render();}
+function statusRefresh(){var s=document.getElementById('status');if(s&&s.textContent.indexOf('Saving')<0)s.innerHTML=statusHtml();if(S.screen==='settings')softRender();}
+applyPrefs();
+try{var qs=new URLSearchParams(location.search).get('u');if(qs&&validNick(qs.toLowerCase()))S.wantRead=qs.toLowerCase();}catch(e){}
+if(LIVE){
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__bip=e;});
+  window.addEventListener('online',statusRefresh);window.addEventListener('offline',statusRefresh);
+  if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(function(){});
+  go('loading',{},false);
+  var API={getDb:function(){return db;},setDb:function(v){db=v;},dev:dev,S:S,start:start,render:render,softRender:softRender,statusRefresh:statusRefresh,toast:toast,hash:hash,saveDev:saveDev,newBook:newBook,checkStickers:checkStickers};
+  import('./live.js').then(function(m){LV=m;m.init(API);}).catch(function(){app.innerHTML='<main class="center"><p class="muted">Couldn’t open the app. Check your internet, then close and reopen it.</p></main>';});
+}else{fixHashes();saveDb();start();}
+})();
+</script>
+</body>
+</html>
